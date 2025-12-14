@@ -1,0 +1,55 @@
+<nz-card nzTitle="Clients Management">
+    <div class="header-actions" nz-row [nzGutter]="16" style="margin-bottom: 24px;">
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+            <nz-input-group [nzPrefix]="prefixTemplate">
+                <input type="text" nz-input placeholder="Search by name, phone or code" [(ngModel)]="searchText" />
+            </nz-input-group>
+            <ng-template #prefixTemplate>
+                <i nz-icon nzType="search"></i>
+            </ng-template>
+        </div>
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="16" style="text-align: right;">
+            <button nz-button nzType="primary" (click)="navigateToCreate()">
+                <i nz-icon nzType="plus"></i> Create Client
+            </button>
+        </div>
+    </div>
+
+    <nz-table #basicTable [nzData]="filteredClients" [nzLoading]="loading">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Area</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of basicTable.data">
+                <td><code style="color: #1890ff;">{{ data.code }}</code></td>
+                <td>{{ data.name }}</td>
+                <td>{{ data.phone }}</td>
+                <td>{{ data.area || '-' }}</td>
+                <td>
+                    <nz-tag [nzColor]="data.status === 'Inactive' ? 'red' : 'green'">
+                        {{ data.status || 'Active' }}
+                    </nz-tag>
+                </td>
+                <td>
+                    <nz-space>
+                        <button *nzSpaceItem nz-button nzType="default" nzShape="circle" nz-tooltip="View"
+                            (click)="navigateToView(data._id)">
+                            <i nz-icon nzType="eye"></i>
+                        </button>
+                        <button *nzSpaceItem nz-button nzType="primary" nzShape="circle" nz-tooltip="Edit"
+                            (click)="navigateToEdit(data._id)">
+                            <i nz-icon nzType="edit"></i>
+                        </button>
+                    </nz-space>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>

@@ -5,7 +5,6 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { AnalyticsComponent } from './components/analytics/analytics.component';
-import { ClientsComponent } from './components/clients/clients.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -32,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: 'clients',
-    component: ClientsComponent,
+    loadChildren: () => import('./components/clients/clients.module').then(m => m.ClientsModule),
     canActivate: [AuthGuard]
   },
   {

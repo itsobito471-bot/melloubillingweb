@@ -1,0 +1,93 @@
+<nz-card [nzTitle]="isEditMode ? 'Edit Client' : 'Create New Client'">
+    <form nz-form [formGroup]="clientForm" nzLayout="vertical">
+        <div nz-row [nzGutter]="24">
+            <!-- Client Code -->
+            <div nz-col [nzXs]="24" [nzMd]="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Client Code</nz-form-label>
+                    <nz-form-control nzErrorTip="Please enter client code">
+                        <input nz-input formControlName="code" placeholder="e.g. C001"
+                            style="text-transform: uppercase;" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- Status -->
+            <div nz-col [nzXs]="24" [nzMd]="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Status</nz-form-label>
+                    <nz-form-control>
+                        <nz-radio-group formControlName="status">
+                            <label nz-radio nzValue="Active">Active</label>
+                            <label nz-radio nzValue="Inactive">Inactive</label>
+                        </nz-radio-group>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- Name -->
+            <div nz-col [nzXs]="24" [nzMd]="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Client Name</nz-form-label>
+                    <nz-form-control nzErrorTip="Please enter name">
+                        <input nz-input formControlName="name" placeholder="Full Name" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- Phone -->
+            <div nz-col [nzXs]="24" [nzMd]="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Phone Number</nz-form-label>
+                    <nz-form-control nzErrorTip="Please enter phone number">
+                        <input nz-input formControlName="phone" placeholder="Phone Number" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- Area -->
+            <div nz-col [nzXs]="24" [nzMd]="12">
+                <nz-form-item>
+                    <nz-form-label>Area</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="area" nzPlaceHolder="Select Area" nzShowSearch nzAllowClear
+                            (ngModelChange)="onAreaChange()">
+                            <nz-option *ngFor="let area of areas" [nzValue]="area.name"
+                                [nzLabel]="area.name"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- Subarea -->
+            <div nz-col [nzXs]="24" [nzMd]="12">
+                <nz-form-item>
+                    <nz-form-label>Subarea</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="subarea" nzPlaceHolder="Select Subarea" nzShowSearch nzAllowClear>
+                            <nz-option *ngFor="let s of filteredSubareas" [nzValue]="s" [nzLabel]="s"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- Address -->
+            <div nz-col [nzXs]="24">
+                <nz-form-item>
+                    <nz-form-label>Address</nz-form-label>
+                    <nz-form-control>
+                        <textarea nz-input formControlName="address" rows="3" placeholder="Full Address"></textarea>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div style="text-align: right; margin-top: 16px;">
+            <button nz-button nzType="default" (click)="onCancel()" style="margin-right: 8px;">Cancel</button>
+            <button nz-button nzType="primary" [nzLoading]="loading" (click)="submitForm()">
+                {{ isEditMode ? 'Update Client' : 'Create Client' }}
+            </button>
+        </div>
+    </form>
+</nz-card>

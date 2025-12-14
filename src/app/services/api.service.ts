@@ -113,6 +113,10 @@ export class AppService {
         return this.post('/clients', data);
     }
 
+    updateClient(id: string, data: any): Observable<any> {
+        return this.patch(`/clients/${id}`, data);
+    }
+
     // Bill methods
     createBill(data: any): Observable<any> {
         return this.post('/bills', data);
