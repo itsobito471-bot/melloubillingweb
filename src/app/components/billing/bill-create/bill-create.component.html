@@ -99,9 +99,9 @@
             <nz-form-item>
                 <nz-form-control nzErrorTip="Please select product">
                     <nz-select formControlName="productId" nzPlaceHolder="Select Product" nzShowSearch
-                        style="width: 250px;">
+                        style="width: 300px;">
                         <nz-option *ngFor="let product of products" [nzValue]="product._id"
-                            [nzLabel]="product.name + ' (₹' + product.price + ')'">
+                            [nzLabel]="product.code + ' - ' + product.name + ' (₹' + product.price + ')'">
                         </nz-option>
                     </nz-select>
                 </nz-form-control>
