@@ -1,0 +1,80 @@
+<nz-card [nzTitle]="titleTemplate">
+    <ng-template #titleTemplate>
+        <div style="display: flex; align-items: center;">
+            <i nz-icon nzType="arrow-left" nzTheme="outline"
+                style="cursor: pointer; margin-right: 16px; font-size: 18px;" (click)="onCancel()"
+                nz-tooltip="Back to Expenses"></i>
+            <span style="font-size: 18px; font-weight: bold;">{{ isEditMode ? 'Edit Expense' : 'Add New Expense'
+                }}</span>
+        </div>
+    </ng-template>
+
+    <form nz-form [formGroup]="expenseForm" nzLayout="vertical">
+        <div nz-row [nzGutter]="24">
+            <!-- Date -->
+            <div nz-col [nzXs]="24" [nzMd]="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Date</nz-form-label>
+                    <nz-form-control nzErrorTip="Please select date">
+                        <nz-date-picker formControlName="date" style="width: 100%;"></nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- Amount -->
+            <div nz-col [nzXs]="24" [nzMd]="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Amount (₹)</nz-form-label>
+                    <nz-form-control nzErrorTip="Please enter amount">
+                        <nz-input-number formControlName="amount" [nzMin]="0" [nzStep]="1" style="width: 100%;"
+                            nzPlaceHolder="Enter amount"></nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- Category -->
+            <div nz-col [nzXs]="24" [nzMd]="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Category</nz-form-label>
+                    <nz-form-control nzErrorTip="Please select category">
+                        <nz-select formControlName="category" nzPlaceHolder="Select Category" nzShowSearch>
+                            <nz-option *ngFor="let cat of categories" [nzValue]="cat._id"
+                                [nzLabel]="cat.name"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- Payment Method -->
+            <div nz-col [nzXs]="24" [nzMd]="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Payment Method</nz-form-label>
+                    <nz-form-control nzErrorTip="Please select payment method">
+                        <nz-select formControlName="paymentMethod" nzPlaceHolder="Select Payment Method">
+                            <nz-option *ngFor="let method of paymentMethods" [nzValue]="method"
+                                [nzLabel]="method"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- Description -->
+            <div nz-col [nzXs]="24">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Description</nz-form-label>
+                    <nz-form-control nzErrorTip="Please enter description">
+                        <textarea nz-input formControlName="description" rows="3"
+                            placeholder="Expense details"></textarea>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <div style="text-align: right; margin-top: 16px;">
+            <button nz-button nzType="default" (click)="onCancel()" style="margin-right: 8px;">Cancel</button>
+            <button nz-button nzType="primary" [nzLoading]="loading" (click)="submitForm()">
+                {{ isEditMode ? 'Update Expense' : 'Save Expense' }}
+            </button>
+        </div>
+    </form>
+</nz-card>

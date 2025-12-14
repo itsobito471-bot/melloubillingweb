@@ -39,6 +39,11 @@ const routes: Routes = [
     loadChildren: () => import('./components/areas/areas.module').then(m => m.AreasModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'expenses',
+    loadChildren: () => import('./components/expenses/expenses.module').then(m => m.ExpensesModule),
+    canActivate: [AuthGuard]
+  },
   { path: '**', redirectTo: '/dashboard' }
 ];
 

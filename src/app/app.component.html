@@ -55,6 +55,18 @@
           <span *ngIf="!isCollapsed">Areas</span>
         </a>
       </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/expenses/categories">
+          <i class="fa-solid fa-layer-group"></i>
+          <span *ngIf="!isCollapsed">Exp. Categories</span>
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/expenses/all">
+          <i class="fa-solid fa-receipt"></i>
+          <span *ngIf="!isCollapsed">Expenses</span>
+        </a>
+      </li>
 
       <li class="menu-spacer" style="flex-grow: 1; pointer-events: none; min-height: 20px;"></li>
 

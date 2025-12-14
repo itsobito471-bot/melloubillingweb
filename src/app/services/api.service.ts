@@ -172,4 +172,46 @@ export class AppService {
     getAnalytics(): Observable<any> {
         return this.get('/analytics');
     }
+
+    // Expense Categories methods
+    getExpenseCategories(): Observable<any> {
+        return this.get('/expenses/categories');
+    }
+
+    addExpenseCategory(data: any): Observable<any> {
+        return this.post('/expenses/categories', data);
+    }
+
+    updateExpenseCategory(id: string, data: any): Observable<any> {
+        return this.patch(`/expenses/categories/${id}`, data);
+    }
+
+    deleteExpenseCategory(id: string): Observable<any> {
+        return this.delete(`/expenses/categories/${id}`);
+    }
+
+    // Expenses methods
+    getExpenses(params?: any): Observable<any> {
+        let url = '/expenses';
+        if (params) {
+            const queryParams = new URLSearchParams();
+            Object.keys(params).forEach(key => {
+                if (params[key]) queryParams.append(key, params[key]);
+            });
+            url += '?' + queryParams.toString();
+        }
+        return this.get(url);
+    }
+
+    addExpense(data: any): Observable<any> {
+        return this.post('/expenses', data);
+    }
+
+    updateExpense(id: string, data: any): Observable<any> {
+        return this.patch(`/expenses/${id}`, data);
+    }
+
+    deleteExpense(id: string): Observable<any> {
+        return this.delete(`/expenses/${id}`);
+    }
 }
