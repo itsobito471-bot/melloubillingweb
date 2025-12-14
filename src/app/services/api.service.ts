@@ -47,10 +47,13 @@ export class AppService {
         });
     }
 
-    getHeaders() {
+    getHeaders(excludeContentType: boolean = false) {
         let headers = new HttpHeaders()
-            .set('X-Requested-With', 'XMLHttpRequest')
-            .set('Content-Type', 'application/json');
+            .set('X-Requested-With', 'XMLHttpRequest');
+
+        if (!excludeContentType) {
+            headers = headers.set('Content-Type', 'application/json');
+        }
 
         const token = sessionStorage.getItem('accountAccessToken');
         if (token) {
@@ -128,14 +131,11 @@ export class AppService {
 
     downloadBillPDF(billId: string): void {
         const url = `${this.apiEndPoint}/bills/${billId}/pdf`;
-
-        // Use HTTP client with proper headers to download PDF
         this.http.get(url, {
             headers: this.getHeaders(),
             responseType: 'blob'
         }).subscribe({
             next: (blob: Blob) => {
-                // Create a download link and trigger download
                 const downloadUrl = window.URL.createObjectURL(blob);
                 const link = document.createElement('a');
                 link.href = downloadUrl;
@@ -203,11 +203,25 @@ export class AppService {
         return this.get(url);
     }
 
+    getExpenseById(id: string): Observable<any> {
+        return this.get(`/expenses/${id}`);
+    }
+
     addExpense(data: any): Observable<any> {
+        if (data instanceof FormData) {
+            return this.http.post(this.apiEndPoint + '/expenses', data, {
+                headers: this.getHeaders(true)
+            });
+        }
         return this.post('/expenses', data);
     }
 
     updateExpense(id: string, data: any): Observable<any> {
+        if (data instanceof FormData) {
+            return this.http.patch(this.apiEndPoint + `/expenses/${id}`, data, {
+                headers: this.getHeaders(true)
+            });
+        }
         return this.patch(`/expenses/${id}`, data);
     }
 

@@ -25,6 +25,7 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
     NzInputNumberModule,
     NzModalModule,
     NzPopconfirmModule,
-    NzMessageModule
+    NzMessageModule,
+    NzUploadModule
   ]
 })
 export class ExpensesModule { }

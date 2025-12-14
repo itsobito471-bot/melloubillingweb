@@ -58,6 +58,25 @@
                 </nz-form-item>
             </div>
 
+            <!-- Receipt Upload -->
+            <div nz-col [nzXs]="24">
+                <nz-form-item>
+                    <nz-form-label>Receipt / Bill (Optional)</nz-form-label>
+                    <nz-form-control>
+                        <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload" [nzRemove]="removeFile"
+                            [nzLimit]="1">
+                            <button nz-button>
+                                <i nz-icon nzType="upload"></i> Select File (PDF/Image)
+                            </button>
+                        </nz-upload>
+                        <div *ngIf="existingReceiptUrl && fileList.length === 0" style="margin-top: 8px;">
+                            <i nz-icon nzType="paper-clip" style="margin-right: 8px;"></i>
+                            <a [href]="existingReceiptUrl" target="_blank">View Existing Receipt</a>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
             <!-- Description -->
             <div nz-col [nzXs]="24">
                 <nz-form-item>
