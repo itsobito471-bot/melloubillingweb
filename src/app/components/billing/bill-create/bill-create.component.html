@@ -1,9 +1,12 @@
-<nz-card nzTitle="Create New Bill">
-    <!-- Back Button -->
-    <button nz-button nzType="default" (click)="onCancel()" style="margin-bottom: 16px;">
-        <i nz-icon nzType="arrow-left"></i>
-        Back to Bills
-    </button>
+<nz-card [nzTitle]="titleTemplate">
+    <ng-template #titleTemplate>
+        <div style="display: flex; align-items: center;">
+            <i nz-icon nzType="arrow-left" nzTheme="outline"
+                style="cursor: pointer; margin-right: 16px; font-size: 18px;" (click)="onCancel()"
+                nz-tooltip="Back to Bills"></i>
+            <span style="font-size: 18px; font-weight: bold;">Create New Bill</span>
+        </div>
+    </ng-template>
 
     <!-- Client Section -->
     <div class="section-container">

@@ -5,6 +5,9 @@
 <nz-card *ngIf="client && !loading" [nzTitle]="titleTemplate" [nzExtra]="extraTemplate">
     <ng-template #titleTemplate>
         <div style="display: flex; align-items: center;">
+            <i nz-icon nzType="arrow-left" nzTheme="outline"
+                style="cursor: pointer; margin-right: 16px; font-size: 18px;" (click)="backToList()"
+                nz-tooltip="Back to List"></i>
             <span style="font-size: 18px; font-weight: bold; margin-right: 12px;">{{ client.name }}</span>
             <nz-tag [nzColor]="client.status === 'Inactive' ? 'red' : 'green'">{{ client.status || 'Active' }}</nz-tag>
         </div>
@@ -12,9 +15,7 @@
 
     <ng-template #extraTemplate>
         <nz-space>
-            <button *nzSpaceItem nz-button nzType="default" (click)="backToList()">
-                <i nz-icon nzType="arrow-left"></i> Back
-            </button>
+            <!-- Back button removed -->
             <button *nzSpaceItem nz-button nzType="primary" (click)="editClient()">
                 <i nz-icon nzType="edit"></i> Edit
             </button>

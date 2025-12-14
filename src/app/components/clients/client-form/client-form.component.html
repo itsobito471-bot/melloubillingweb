@@ -1,4 +1,13 @@
-<nz-card [nzTitle]="isEditMode ? 'Edit Client' : 'Create New Client'">
+<nz-card [nzTitle]="titleTemplate">
+    <ng-template #titleTemplate>
+        <div style="display: flex; align-items: center;">
+            <i nz-icon nzType="arrow-left" nzTheme="outline"
+                style="cursor: pointer; margin-right: 16px; font-size: 18px;" (click)="onCancel()"
+                nz-tooltip="Back to List"></i>
+            <span style="font-size: 18px; font-weight: bold;">{{ isEditMode ? 'Edit Client' : 'Create New Client'
+                }}</span>
+        </div>
+    </ng-template>
     <form nz-form [formGroup]="clientForm" nzLayout="vertical">
         <div nz-row [nzGutter]="24">
             <!-- Client Code -->
