@@ -1,0 +1,8 @@
+.filters-section {
+    margin-bottom: 24px;
+}
+
+.filters-section nz-input-group,
+.filters-section nz-range-picker {
+    width: 100%;
+}

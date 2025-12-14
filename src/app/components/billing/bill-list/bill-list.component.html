@@ -1,0 +1,81 @@
+<nz-card nzTitle="Bills Management">
+    <!-- Filters Section -->
+    <div class="filters-section" nz-row [nzGutter]="16">
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+            <nz-input-group [nzPrefix]="prefixTemplate">
+                <input nz-input placeholder="Search by client name or phone" [(ngModel)]="searchText"
+                    (ngModelChange)="onSearch()" />
+            </nz-input-group>
+            <ng-template #prefixTemplate>
+                <i nz-icon nzType="search"></i>
+            </ng-template>
+        </div>
+
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+            <nz-range-picker [(ngModel)]="dateRange" (ngModelChange)="onDateRangeChange()" style="width: 100%;">
+            </nz-range-picker>
+        </div>
+
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="4">
+            <button nz-button nzType="default" (click)="clearFilters()" style="width: 100%;">
+                <i nz-icon nzType="close"></i>
+                Clear Filters
+            </button>
+        </div>
+
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="4">
+            <button nz-button nzType="primary" (click)="onCreateBill()" style="width: 100%;">
+                <i nz-icon nzType="plus"></i>
+                Create Bill
+            </button>
+        </div>
+    </div>
+
+    <nz-divider></nz-divider>
+
+    <!-- Bills Table -->
+    <nz-table #billsTable [nzData]="filteredBills" [nzLoading]="loading" [nzPageSize]="10" [nzScroll]="{ x: '800px' }">
+        <thead>
+            <tr>
+                <th>Bill ID</th>
+                <th>Date</th>
+                <th>Client</th>
+                <th>Phone</th>
+                <th>Items</th>
+                <th>Total Amount</th>
+                <th nzWidth="120px">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let bill of billsTable.data">
+                <td>
+                    <code style="font-size: 11px; color: #666;">{{ bill._id }}</code>
+                </td>
+                <td>{{ bill.date | date:'short' }}</td>
+                <td><strong>{{ bill.client?.name || 'Unknown' }}</strong></td>
+                <td>{{ bill.client?.phone || '-' }}</td>
+                <td>
+                    <nz-tag nzColor="blue">{{ bill.items?.length || 0 }} items</nz-tag>
+                </td>
+                <td>
+                    <strong style="color: #b78fd1;">₹{{ bill.finalAmount || getTotal(bill) }}</strong>
+                </td>
+                <td>
+                    <button nz-button nzType="link" (click)="downloadPDF(bill._id)" nz-tooltip="Download PDF">
+                        <i nz-icon nzType="download"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr *ngIf="filteredBills.length === 0">
+                <td colspan="7" style="text-align: center; color: #999; padding: 40px;">
+                    <i nz-icon nzType="file-text" style="font-size: 48px; opacity: 0.3;"></i>
+                    <p style="margin-top: 16px;">No bills found</p>
+                    <button nz-button nzType="primary" (click)="onCreateBill()">
+                        <i nz-icon nzType="plus"></i>
+                        Create Your First Bill
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>

@@ -29,6 +29,8 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NZ_ICONS } from 'ng-zorro-antd/icon';
 import {
   UserOutline,
@@ -44,15 +46,16 @@ import {
   EnvironmentOutline,
   TeamOutline,
   FileAddOutline,
-  ShoppingOutline
+  ShoppingOutline,
+  SearchOutline,
+  DownloadOutline,
+  ArrowLeftOutline
 } from '@ant-design/icons-angular/icons';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { BillingComponent } from './components/billing/billing.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { AnalyticsComponent } from './components/analytics/analytics.component';
 import { ClientsComponent } from './components/clients/clients.component';
-import { AreasComponent } from './components/areas/areas.component';
 
 const icons = [
   UserOutline,
@@ -68,7 +71,10 @@ const icons = [
   EnvironmentOutline,
   TeamOutline,
   FileAddOutline,
-  ShoppingOutline
+  ShoppingOutline,
+  SearchOutline,
+  DownloadOutline,
+  ArrowLeftOutline
 ];
 
 registerLocaleData(en);
@@ -78,11 +84,9 @@ registerLocaleData(en);
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    BillingComponent,
     InventoryComponent,
     AnalyticsComponent,
-    ClientsComponent,
-    AreasComponent
+    ClientsComponent
   ],
   imports: [
     BrowserModule,
@@ -110,6 +114,8 @@ registerLocaleData(en);
     NzTagModule,
     NzBadgeModule,
     NzDropDownModule,
+    NzDatePickerModule,
+    NzToolTipModule,
 
   ],
   providers: [

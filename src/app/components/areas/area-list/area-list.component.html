@@ -1,0 +1,58 @@
+<nz-card nzTitle="Areas Management">
+    <!-- Action Buttons -->
+    <div style="margin-bottom: 16px;">
+        <button nz-button nzType="primary" (click)="showModal()" style="margin-right: 8px;">
+            <i nz-icon nzType="plus"></i>
+            Add Area
+        </button>
+        <button nz-button nzType="default" (click)="navigateToSubareas()">
+            <i nz-icon nzType="environment"></i>
+            Manage Subareas
+        </button>
+    </div>
+
+    <!-- Areas Table -->
+    <nz-table #areasTable [nzData]="areas" [nzLoading]="loading" [nzPageSize]="10" [nzScroll]="{ x: '500px' }">
+        <thead>
+            <tr>
+                <th>Area Name</th>
+                <th>Number of Subareas</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let area of areasTable.data">
+                <td><strong>{{ area.name }}</strong></td>
+                <td>
+                    <nz-tag nzColor="purple">{{ area.subareaCount || 0 }} subareas</nz-tag>
+                </td>
+                <td>{{ area.createdAt | date:'short' }}</td>
+            </tr>
+            <tr *ngIf="areas.length === 0">
+                <td colspan="3" style="text-align: center; color: #999; padding: 40px;">
+                    <i nz-icon nzType="environment" style="font-size: 48px; opacity: 0.3;"></i>
+                    <p style="margin-top: 16px;">No areas found</p>
+                    <button nz-button nzType="primary" (click)="showModal()">
+                        <i nz-icon nzType="plus"></i>
+                        Add Your First Area
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>
+
+<!-- Add Area Modal -->
+<nz-modal [(nzVisible)]="isModalVisible" nzTitle="Add New Area" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+    [nzOkLoading]="modalLoading" nzOkText="Add Area" nzCancelText="Cancel">
+    <ng-container *nzModalContent>
+        <form nz-form [formGroup]="areaForm" nzLayout="vertical">
+            <nz-form-item>
+                <nz-form-label nzRequired>Area Name</nz-form-label>
+                <nz-form-control nzErrorTip="Please enter area name">
+                    <input nz-input formControlName="name" placeholder="Enter area name" (keyup.enter)="handleOk()" />
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </ng-container>
+</nz-modal>

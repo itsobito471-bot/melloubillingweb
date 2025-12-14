@@ -124,10 +124,25 @@ export class AppService {
 
     downloadBillPDF(billId: string): void {
         const url = `${this.apiEndPoint}/bills/${billId}/pdf`;
-        const token = sessionStorage.getItem('accountAccessToken');
 
-        // Open PDF in new window with authorization header
-        window.open(`${url}?token=${token}`, '_blank');
+        // Use HTTP client with proper headers to download PDF
+        this.http.get(url, {
+            headers: this.getHeaders(),
+            responseType: 'blob'
+        }).subscribe({
+            next: (blob: Blob) => {
+                // Create a download link and trigger download
+                const downloadUrl = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = downloadUrl;
+                link.download = `bill-${billId}.pdf`;
+                link.click();
+                window.URL.revokeObjectURL(downloadUrl);
+            },
+            error: (error) => {
+                console.error('Error downloading PDF:', error);
+            }
+        });
     }
 
     // Area methods
@@ -139,8 +154,14 @@ export class AppService {
         return this.post('/areas', data);
     }
 
+    // Subarea methods
+    getSubareas(areaId?: string): Observable<any> {
+        const url = areaId ? `/subareas?areaId=${areaId}` : '/subareas';
+        return this.get(url);
+    }
+
     addSubarea(data: any): Observable<any> {
-        return this.post('/areas/subarea', data);
+        return this.post('/subareas', data);
     }
 
     // Analytics methods

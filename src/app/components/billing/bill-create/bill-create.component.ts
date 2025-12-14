@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AppService } from '../../services/api.service';
+import { AppService } from '../../../services/api.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 interface BasketItem {
@@ -9,11 +10,11 @@ interface BasketItem {
 }
 
 @Component({
-  selector: 'app-billing',
-  templateUrl: './billing.component.html',
-  styleUrls: ['./billing.component.css']
+  selector: 'app-bill-create',
+  templateUrl: './bill-create.component.html',
+  styleUrls: ['./bill-create.component.css']
 })
-export class BillingComponent implements OnInit {
+export class BillCreateComponent implements OnInit {
   clients: any[] = [];
   products: any[] = [];
   areas: any[] = [];
@@ -29,6 +30,7 @@ export class BillingComponent implements OnInit {
   loading = false;
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private appService: AppService,
     private message: NzMessageService
@@ -61,13 +63,24 @@ export class BillingComponent implements OnInit {
     const areaName = this.clientForm.get('area')?.value;
     this.selectedArea = areaName;
 
-    // Clear subarea when area changes
     this.clientForm.patchValue({ subarea: '' });
 
-    // Filter subareas based on selected area
     if (areaName) {
       const selectedAreaObj = this.areas.find(a => a.name === areaName);
-      this.filteredSubareas = selectedAreaObj?.subareas || [];
+      if (selectedAreaObj) {
+        // Load subareas for the selected area
+        this.appService.getSubareas(selectedAreaObj._id).subscribe({
+          next: (response) => {
+            const subareas = response.data || response;
+            this.filteredSubareas = subareas.map((s: any) => s.name);
+          },
+          error: () => {
+            this.filteredSubareas = [];
+          }
+        });
+      } else {
+        this.filteredSubareas = [];
+      }
     } else {
       this.filteredSubareas = [];
     }
@@ -116,19 +129,8 @@ export class BillingComponent implements OnInit {
 
       if (!product) return;
 
-      // STOCK VALIDATION - COMMENTED OUT
-      // if (quantity > product.stock) {
-      //   this.message.error('Insufficient stock!');
-      //   return;
-      // }
-
       const existing = this.basket.find(i => i.product._id === product._id);
       if (existing) {
-        // STOCK VALIDATION - COMMENTED OUT
-        // if ((existing.quantity + quantity) > product.stock) {
-        //   this.message.error('Insufficient stock!');
-        //   return;
-        // }
         existing.quantity += quantity;
       } else {
         this.basket.push({ product, quantity });
@@ -164,27 +166,16 @@ export class BillingComponent implements OnInit {
     this.appService.createBill(payload).subscribe({
       next: (bill) => {
         this.message.success('Bill created successfully!', {
-          nzDuration: 5000
+          nzDuration: 3000
         });
 
-        // Show download option
-        const messageId = this.message.info(
-          `Click here to download PDF`,
-          {
-            nzDuration: 10000,
-            nzPauseOnHover: true
-          }
-        );
-
-        // Download PDF automatically
-        setTimeout(() => {
-          this.downloadPDF(bill._id);
-        }, 500);
-
+        // Reset form
         this.basket = [];
         this.selectedClientId = '';
-        this.loadData();
         this.loading = false;
+
+        // Navigate back to bill list
+        this.router.navigate(['/billing']);
       },
       error: () => {
         this.message.error('Failed to create bill');
@@ -193,7 +184,7 @@ export class BillingComponent implements OnInit {
     });
   }
 
-  downloadPDF(billId: string): void {
-    this.appService.downloadBillPDF(billId);
+  onCancel(): void {
+    this.router.navigate(['/billing']);
   }
 }

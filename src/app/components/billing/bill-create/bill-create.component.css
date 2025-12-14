@@ -1,0 +1,20 @@
+.section-container {
+    margin-bottom: 24px;
+}
+
+.section-container h3 {
+    margin-bottom: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #262626;
+}
+
+.section-container h3 i {
+    margin-right: 8px;
+    color: #b78fd1;
+}
+
+.new-client-card {
+    margin-top: 16px;
+    background: #fafafa;
+}

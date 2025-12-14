@@ -1,0 +1,71 @@
+<nz-card nzTitle="Subareas Management">
+    <!-- Action Buttons -->
+    <div style="margin-bottom: 16px;">
+        <button nz-button nzType="default" (click)="navigateToAreas()" style="margin-right: 8px;">
+            <i nz-icon nzType="arrow-left"></i>
+            Back to Areas
+        </button>
+        <button nz-button nzType="primary" (click)="showModal()">
+            <i nz-icon nzType="plus"></i>
+            Add Subarea
+        </button>
+    </div>
+
+    <!-- Subareas Table -->
+    <nz-table #subareasTable [nzData]="subareas" [nzLoading]="loading" [nzPageSize]="10" [nzScroll]="{ x: '600px' }">
+        <thead>
+            <tr>
+                <th>Subarea Name</th>
+                <th>Area</th>
+                <th>Area ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let subarea of subareasTable.data">
+                <td><strong>{{ subarea.name }}</strong></td>
+                <td>
+                    <nz-tag nzColor="blue">{{ subarea.areaName }}</nz-tag>
+                </td>
+                <td>
+                    <code style="font-size: 11px; color: #666;">{{ subarea.areaId }}</code>
+                </td>
+            </tr>
+            <tr *ngIf="subareas.length === 0">
+                <td colspan="3" style="text-align: center; color: #999; padding: 40px;">
+                    <i nz-icon nzType="environment" style="font-size: 48px; opacity: 0.3;"></i>
+                    <p style="margin-top: 16px;">No subareas found</p>
+                    <button nz-button nzType="primary" (click)="showModal()">
+                        <i nz-icon nzType="plus"></i>
+                        Add Your First Subarea
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>
+
+<!-- Add Subarea Modal -->
+<nz-modal [(nzVisible)]="isModalVisible" nzTitle="Add New Subarea" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+    [nzOkLoading]="modalLoading" nzOkText="Add Subarea" nzCancelText="Cancel">
+    <ng-container *nzModalContent>
+        <form nz-form [formGroup]="subareaForm" nzLayout="vertical">
+            <nz-form-item>
+                <nz-form-label nzRequired>Select Area</nz-form-label>
+                <nz-form-control nzErrorTip="Please select an area">
+                    <nz-select formControlName="areaId" nzPlaceHolder="Select Area" nzShowSearch>
+                        <nz-option *ngFor="let area of areas" [nzValue]="area._id" [nzLabel]="area.name">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label nzRequired>Subarea Name</nz-form-label>
+                <nz-form-control nzErrorTip="Please enter subarea name">
+                    <input nz-input formControlName="name" placeholder="Enter subarea name"
+                        (keyup.enter)="handleOk()" />
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </ng-container>
+</nz-modal>

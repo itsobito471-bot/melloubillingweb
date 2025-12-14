@@ -67,10 +67,22 @@ export class ClientsComponent implements OnInit {
     // Clear subarea when area changes
     this.clientForm.patchValue({ subarea: '' });
 
-    // Filter subareas based on selected area
+    // Load subareas based on selected area
     if (areaName) {
       const selectedAreaObj = this.areas.find(a => a.name === areaName);
-      this.filteredSubareas = selectedAreaObj?.subareas || [];
+      if (selectedAreaObj) {
+        this.appService.getSubareas(selectedAreaObj._id).subscribe({
+          next: (response) => {
+            const subareas = response.data || response;
+            this.filteredSubareas = subareas.map((s: any) => s.name);
+          },
+          error: () => {
+            this.filteredSubareas = [];
+          }
+        });
+      } else {
+        this.filteredSubareas = [];
+      }
     } else {
       this.filteredSubareas = [];
     }
