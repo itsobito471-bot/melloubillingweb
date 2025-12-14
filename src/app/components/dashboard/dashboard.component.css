@@ -1,0 +1,99 @@
+.dashboard-container {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.welcome-section {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+.logo-text {
+    font-size: 4rem;
+    font-weight: 700;
+    color: #b78fd1;
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
+}
+
+.tagline {
+    font-size: 1.5rem;
+    color: #888;
+    margin: 10px 0 40px 0;
+    font-weight: 300;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+::ng-deep .action-buttons .ant-btn {
+    min-width: 180px;
+}
+
+::ng-deep .action-buttons .ant-btn-primary {
+    background: linear-gradient(135deg, #b78fd1, #966ab0);
+    border: none;
+    box-shadow: 0 10px 25px rgba(183, 143, 209, 0.3);
+}
+
+::ng-deep .action-buttons .ant-btn:not(.ant-btn-primary) {
+    border: 2px solid #b78fd1;
+    color: #b78fd1;
+}
+
+::ng-deep .action-buttons .ant-btn i {
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+    .logo-text {
+        font-size: 3.5rem;
+    }
+
+    .tagline {
+        font-size: 1.3rem;
+    }
+
+    ::ng-deep .action-buttons .ant-btn {
+        min-width: 160px;
+    }
+}
+
+@media (max-width: 576px) {
+    .dashboard-container {
+        padding: 16px;
+    }
+
+    .logo-text {
+        font-size: 2.5rem;
+    }
+
+    .tagline {
+        font-size: 1.1rem;
+        margin: 10px 0 30px 0;
+    }
+
+    .action-buttons {
+        gap: 12px;
+    }
+
+    ::ng-deep .action-buttons .ant-btn {
+        width: 100%;
+        min-width: auto;
+        height: 48px;
+        font-size: 16px;
+    }
+
+    ::ng-deep .action-buttons .ant-btn i {
+        font-size: 20px;
+    }
+}

@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+/* NG-ZORRO Theme Customization */
+:root {
+    --primary-color: #b78fd1;
+    --primary-dark: #966ab0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f8f5fa;
+    color: #333;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #b78fd1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #966ab0;
+}
+
+/* NG-ZORRO Overrides */
+.ant-btn-primary {
+    background: linear-gradient(135deg, #b78fd1, #966ab0) !important;
+    border: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.ant-btn-primary:hover:not(:disabled),
+.ant-btn-primary:focus:not(:disabled) {
+    background: linear-gradient(135deg, #966ab0, #8a5fa0) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(183, 143, 209, 0.3) !important;
+}
+
+.ant-input:focus,
+.ant-input-focused,
+.ant-input-number:focus,
+.ant-input-number-focused {
+    border-color: #b78fd1 !important;
+    box-shadow: 0 0 0 2px rgba(183, 143, 209, 0.1) !important;
+}
+
+.ant-select-focused .ant-select-selector {
+    border-color: #b78fd1 !important;
+    box-shadow: 0 0 0 2px rgba(183, 143, 209, 0.1) !important;
+}
+
+.ant-menu-item-selected {
+    background-color: rgba(183, 143, 209, 0.1) !important;
+    color: #b78fd1 !important;
+}
+
+.ant-menu-item:hover {
+    color: #b78fd1 !important;
+}
+
+.ant-card {
+    border-radius: 16px !important;
+    box-shadow: 0 4px 20px rgba(183, 143, 209, 0.08) !important;
+}
+
+.ant-table {
+    border-radius: 12px !important;
+}
+
+.ant-pagination-item-active {
+    border-color: #b78fd1 !important;
+}
+
+.ant-pagination-item-active a {
+    color: #b78fd1 !important;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+    .ant-card-body {
+        padding: 16px !important;
+    }
+
+    .ant-table {
+        font-size: 13px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .ant-card-body {
+        padding: 12px !important;
+    }
+
+    .ant-card-head-title {
+        font-size: 16px !important;
+    }
+}

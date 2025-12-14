@@ -1,0 +1,48 @@
+<div class="login-container">
+    <div class="background-decoration">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+    </div>
+
+    <nz-card class="login-card">
+        <div class="logo-section">
+            <h1 class="logo-text">Mellou</h1>
+            <p class="tagline">Delicacy on Demand</p>
+        </div>
+
+        <div class="form-header">
+            <h2>Welcome Back</h2>
+            <p>Sign in to your account</p>
+        </div>
+
+        <form nz-form [formGroup]="loginForm" (ngSubmit)="submitForm()" nzLayout="vertical">
+            <nz-form-item>
+                <nz-form-label nzRequired>Username or Email</nz-form-label>
+                <nz-form-control nzErrorTip="Please input your username!">
+                    <nz-input-group nzPrefixIcon="user" nzSize="large">
+                        <input type="text" nz-input formControlName="username" placeholder="Enter your username" />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label nzRequired>Password</nz-form-label>
+                <nz-form-control nzErrorTip="Please input your password!">
+                    <nz-input-group nzPrefixIcon="lock" nzSize="large">
+                        <input type="password" nz-input formControlName="password" placeholder="Enter your password" />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+
+            <button nz-button nzType="primary" nzSize="large" nzBlock [nzLoading]="loading" type="submit"
+                class="login-button">
+                <span *ngIf="!loading">Sign In</span>
+            </button>
+        </form>
+
+        <div class="footer-text">
+            <p>Don't have an account? <span class="contact-link">Contact administrator</span></p>
+        </div>
+    </nz-card>
+</div>

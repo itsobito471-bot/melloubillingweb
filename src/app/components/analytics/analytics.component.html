@@ -1,0 +1,30 @@
+<nz-card nzTitle="Analytics Dashboard">
+    <div *ngIf="data" nz-row [nzGutter]="[16, 16]">
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+            <nz-card class="stat-card">
+                <nz-statistic nzTitle="Total Revenue" [nzValue]="data.totalRevenue" nzPrefix="₹"
+                    [nzValueStyle]="{ color: '#b78fd1' }"></nz-statistic>
+            </nz-card>
+        </div>
+    </div>
+
+    <nz-divider></nz-divider>
+
+    <h3><i nz-icon nzType="history"></i> Recent Transactions</h3>
+    <nz-table *ngIf="data" [nzData]="data.recentBills" [nzPageSize]="5" [nzScroll]="{ x: '500px' }">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Client</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let bill of data.recentBills">
+                <td>{{ bill.date | date:'medium' }}</td>
+                <td>{{ bill.client?.name || 'Unknown' }}</td>
+                <td><strong>₹{{ bill.finalAmount }}</strong></td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>

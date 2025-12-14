@@ -1,0 +1,10 @@
+.area-card {
+    border-radius: 12px;
+    border: 1px solid #f0f0f0;
+}
+
+::ng-deep .area-card .ant-card-head {
+    background: linear-gradient(135deg, rgba(183, 143, 209, 0.1), rgba(150, 106, 176, 0.1));
+    color: #b78fd1;
+    font-weight: 600;
+}

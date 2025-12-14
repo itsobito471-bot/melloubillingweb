@@ -1,0 +1,434 @@
+/* --- Variables --- */
+:root {
+    --primary-color: #b78fd1;
+    --primary-dark: #966ab0;
+    --sidebar-bg: #ffffff;
+    --text-default: #5f6368;
+    --text-dark: #202124;
+    --bg-app: #f8f9fa;
+    --logout-color: #ff6b6b;
+}
+
+/* --- Layout --- */
+.app-layout {
+    min-height: 100vh;
+    background: var(--bg-app);
+}
+
+.right-layout {
+    background: var(--bg-app);
+    transition: all 0.2s;
+    margin-left: 256px;
+    /* Default margin for expanded sidebar */
+}
+
+/* Adjust margin when sidebar is collapsed */
+::ng-deep .ant-layout-has-sider .ant-layout-sider-collapsed+.right-layout {
+    margin-left: 80px;
+}
+
+/* --- Sidebar Container --- */
+.menu-sidebar {
+    position: fixed !important;
+    left: 0;
+    top: 0;
+    /* Essential for absolute positioning of the toggle button */
+    z-index: 1000;
+    height: 100vh !important;
+    min-height: 100vh;
+    background: var(--sidebar-bg) !important;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+    border-right: 1px solid #f0f0f0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Custom scrollbar for sidebar */
+.menu-sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.menu-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.menu-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(183, 143, 209, 0.3);
+    border-radius: 3px;
+}
+
+.menu-sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(183, 143, 209, 0.5);
+}
+
+/* --- Floating Collapse Button --- */
+.collapse-trigger {
+    position: fixed;
+    top: 24px;
+    left: 244px;
+    /* 256px (sidebar width) - 12px (half button width) */
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    z-index: 1001;
+    /* Above sidebar */
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Adjust button position when sidebar is collapsed */
+::ng-deep .ant-layout-sider-collapsed .collapse-trigger {
+    left: 68px;
+    /* 80px (collapsed width) - 12px */
+}
+
+.collapse-trigger:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.collapse-trigger i {
+    font-size: 12px;
+}
+
+/* --- Sidebar Header --- */
+.sidebar-header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    /* Padding for expanded state */
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--primary-color);
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    flex-shrink: 0;
+    /* Prevents shrinking when collapsed */
+}
+
+.logo-text {
+    color: var(--text-dark);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
+}
+
+/* --- Menu Styling --- */
+::ng-deep .menu-sidebar .ant-menu {
+    background: transparent !important;
+    border-right: none !important;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 80px);
+    /* Height minus header */
+}
+
+::ng-deep .menu-sidebar .ant-menu-item {
+    margin: 4px 0;
+    height: 48px;
+    line-height: 48px;
+    color: var(--text-default);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    padding-left: 24px !important;
+    /* Default padding */
+}
+
+::ng-deep .menu-sidebar .ant-menu-item a {
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+::ng-deep .menu-sidebar .ant-menu-item i {
+    font-size: 18px;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* Active State */
+::ng-deep .menu-sidebar .ant-menu-item-selected {
+    background: linear-gradient(90deg, rgba(183, 143, 209, 0.15), rgba(183, 143, 209, 0.05)) !important;
+    color: var(--primary-dark) !important;
+}
+
+::ng-deep .menu-sidebar .ant-menu-item-selected::after {
+    border-right: 3px solid var(--primary-dark) !important;
+    opacity: 1;
+}
+
+::ng-deep .menu-sidebar .ant-menu-item-selected i {
+    color: var(--primary-dark);
+}
+
+/* Hover State */
+::ng-deep .menu-sidebar .ant-menu-item:hover {
+    color: var(--primary-dark);
+}
+
+/* --- Logout Item Specifics --- */
+.logout-item {
+    margin-top: auto;
+    /* Pushes to bottom */
+    margin-bottom: 20px;
+}
+
+.logout-item a {
+    color: var(--logout-color) !important;
+}
+
+.logout-item:hover {
+    background: rgba(255, 107, 107, 0.1) !important;
+}
+
+/* --- COLLAPSED STATE OVERRIDES --- */
+
+/* When the sidebar is collapsed (ant-layout-sider-collapsed is added by nz-sider) */
+::ng-deep .menu-sidebar.ant-layout-sider-collapsed .sidebar-header {
+    padding: 0;
+    justify-content: center;
+}
+
+::ng-deep .menu-sidebar.ant-layout-sider-collapsed .sidebar-logo {
+    justify-content: center;
+    width: 100%;
+}
+
+::ng-deep .menu-sidebar.ant-layout-sider-collapsed .ant-menu-item {
+    padding: 0 !important;
+    /* Remove padding to center icon */
+    justify-content: center;
+}
+
+::ng-deep .menu-sidebar.ant-layout-sider-collapsed .ant-menu-item a {
+    justify-content: center;
+    padding: 0;
+}
+
+::ng-deep .menu-sidebar.ant-layout-sider-collapsed .ant-menu-item i {
+    margin: 0;
+    /* Remove any margin around icon */
+    font-size: 20px;
+    /* Slightly larger icon when collapsed */
+}
+
+/* Content Area */
+.inner-content {
+    padding: 30px;
+    margin-top: 80px;
+    /* Account for fixed header */
+    min-height: calc(100vh - 80px);
+}
+
+/* --- Top Header --- */
+.top-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 256px;
+    /* Aligns with sidebar width */
+    background: transparent;
+    padding: 0 30px;
+    height: 80px;
+    /* Match sidebar header height */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); */
+    /* border-bottom: 1px solid #f0f0f0; */
+    z-index: 999;
+    transition: left 0.2s;
+}
+
+/* Adjust header position when sidebar is collapsed */
+::ng-deep .ant-layout-sider-collapsed~.right-layout .top-header {
+    left: 80px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Notification Badge */
+.notification-badge {
+    display: flex;
+    align-items: center;
+}
+
+.notification-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--text-default);
+    transition: all 0.3s ease;
+}
+
+.notification-btn:hover {
+    background: rgba(183, 143, 209, 0.1);
+    color: var(--primary-color);
+}
+
+::ng-deep .notification-badge .ant-badge-count {
+    background: #ff4d4f;
+    box-shadow: 0 2px 4px rgba(255, 77, 79, 0.3);
+}
+
+/* User Profile */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+}
+
+.user-profile:hover {
+    background: #fafafa;
+    border-color: var(--primary-color);
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    background: var(--primary-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.2;
+}
+
+.user-email {
+    font-size: 12px;
+    color: var(--text-default);
+    line-height: 1.2;
+}
+
+.user-profile i.fa-chevron-down {
+    font-size: 12px;
+    color: var(--text-default);
+    transition: transform 0.3s ease;
+}
+
+.user-profile:hover i.fa-chevron-down {
+    color: var(--primary-color);
+}
+
+/* User Dropdown Menu */
+::ng-deep .user-dropdown-menu {
+    min-width: 200px;
+    padding: 8px 0;
+}
+
+::ng-deep .user-dropdown-menu .ant-dropdown-menu-item {
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--text-dark);
+}
+
+::ng-deep .user-dropdown-menu .ant-dropdown-menu-item i {
+    width: 16px;
+    font-size: 14px;
+    color: var(--text-default);
+}
+
+::ng-deep .user-dropdown-menu .ant-dropdown-menu-item:hover {
+    background: rgba(183, 143, 209, 0.1);
+    color: var(--primary-color);
+}
+
+::ng-deep .user-dropdown-menu .ant-dropdown-menu-item:hover i {
+    color: var(--primary-color);
+}
+
+::ng-deep .user-dropdown-menu .logout-menu-item {
+    color: var(--logout-color);
+}
+
+::ng-deep .user-dropdown-menu .logout-menu-item i {
+    color: var(--logout-color);
+}
+
+::ng-deep .user-dropdown-menu .logout-menu-item:hover {
+    background: rgba(255, 107, 107, 0.1);
+    color: var(--logout-color);
+}
+
+::ng-deep .user-dropdown-menu .logout-menu-item:hover i {
+    color: var(--logout-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .top-header {
+        padding: 0 16px;
+    }
+
+    .user-details {
+        display: none;
+    }
+
+    .header-right {
+        gap: 12px;
+    }
+}

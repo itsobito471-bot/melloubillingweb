@@ -1,0 +1,74 @@
+<nz-card nzTitle="Inventory Management" [nzExtra]="extraTemplate">
+    <form nz-form [formGroup]="productForm" (ngSubmit)="submitForm()" nzLayout="inline">
+        <nz-form-item>
+            <nz-form-control nzErrorTip="Please enter product name">
+                <input nz-input formControlName="name" placeholder="Product Name" style="width: 200px;" />
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control nzErrorTip="Please enter price">
+                <nz-input-number formControlName="price" [nzMin]="0" [nzStep]="1" nzPlaceHolder="Price (₹)"
+                    style="width: 150px;"></nz-input-number>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control nzErrorTip="Please enter stock">
+                <nz-input-number formControlName="stock" [nzMin]="0" [nzStep]="1" nzPlaceHolder="Stock"
+                    style="width: 120px;"></nz-input-number>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control>
+                <input nz-input formControlName="category" placeholder="Category (Optional)" style="width: 150px;" />
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control>
+                <button nz-button nzType="primary" type="submit" [nzLoading]="loading">
+                    <i nz-icon nzType="plus"></i>
+                    Add Product
+                </button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+
+    <nz-divider></nz-divider>
+
+    <nz-table #productTable [nzData]="products" [nzLoading]="tableLoading" [nzPageSize]="10"
+        [nzScroll]="{ x: '600px' }">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Category</th>
+                <th nzWidth="100px">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of productTable.data">
+                <td>{{ product.name }}</td>
+                <td>₹{{ product.price }}</td>
+                <td>
+                    <nz-tag [nzColor]="product.stock > 10 ? 'success' : product.stock > 0 ? 'warning' : 'error'">
+                        {{ product.stock }}
+                    </nz-tag>
+                </td>
+                <td>{{ product.category || '-' }}</td>
+                <td>
+                    <button nz-button nzType="link" nzDanger (click)="deleteProduct(product._id)">
+                        <i nz-icon nzType="delete"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>
+
+<ng-template #extraTemplate>
+    <nz-tag nzColor="purple">{{ products.length }} Products</nz-tag>
+</ng-template>

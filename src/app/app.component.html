@@ -1,0 +1,121 @@
+<div *ngIf="!isLoggedIn">
+  <router-outlet></router-outlet>
+</div>
+
+<nz-layout *ngIf="isLoggedIn" class="app-layout">
+
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" [nzCollapsedWidth]="80" nzBreakpoint="lg"
+    [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" nzTheme="light">
+
+    <button class="collapse-trigger" (click)="isCollapsed = !isCollapsed">
+      <i class="fa-solid" [ngClass]="isCollapsed ? 'fa-angles-right' : 'fa-angles-left'"></i>
+    </button>
+
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-icon">M</div>
+        <h1 *ngIf="!isCollapsed" class="logo-text">Mellou</h1>
+      </div>
+    </div>
+
+    <ul nz-menu nzTheme="light" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/dashboard">
+          <i class="fa-solid fa-chart-line"></i>
+          <span *ngIf="!isCollapsed">Dashboard</span>
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/billing">
+          <i class="fa-solid fa-file-invoice"></i>
+          <span *ngIf="!isCollapsed">New Bill</span>
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/inventory">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span *ngIf="!isCollapsed">Inventory</span>
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/clients">
+          <i class="fa-solid fa-users"></i>
+          <span *ngIf="!isCollapsed">Clients</span>
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/analytics">
+          <i class="fa-solid fa-chart-bar"></i>
+          <span *ngIf="!isCollapsed">Analytics</span>
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/areas">
+          <i class="fa-solid fa-map-location-dot"></i>
+          <span *ngIf="!isCollapsed">Areas</span>
+        </a>
+      </li>
+
+      <li class="menu-spacer" style="flex-grow: 1; pointer-events: none; min-height: 20px;"></li>
+
+      <!-- <li nz-menu-item (click)="logout()" class="logout-item">
+        <a href="javascript:void(0)">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span *ngIf="!isCollapsed">Logout</span>
+        </a>
+      </li> -->
+    </ul>
+  </nz-sider>
+
+  <nz-layout class="right-layout">
+    <!-- Top Header with Notifications and User Profile -->
+    <nz-header class="top-header">
+      <div class="header-right">
+        <!-- Notification Icon with Badge -->
+        <nz-badge [nzCount]="notificationCount" [nzOverflowCount]="99" class="notification-badge">
+          <button nz-button nzType="text" class="notification-btn">
+            <i class="fa-solid fa-bell"></i>
+          </button>
+        </nz-badge>
+
+        <!-- User Profile Dropdown -->
+        <!-- User Profile Dropdown -->
+        <div class="user-profile" nz-dropdown [nzDropdownMenu]="userMenu" nzPlacement="bottomRight">
+          <div class="user-avatar">
+            <span>{{ getUserInitials() }}</span>
+          </div>
+
+          <div class="user-details">
+            <div class="user-name">{{ currentUser?.username }}</div>
+            <div class="user-email">
+              {{ currentUser?.email || 'developer@gmail.com' }}
+            </div>
+          </div>
+
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+
+        <nz-dropdown-menu #userMenu="nzDropdownMenu">
+          <ul nz-menu class="user-dropdown-menu">
+            <li nz-menu-item>
+              <i class="fa-solid fa-key"></i>
+              <span>Change Password</span>
+            </li>
+
+            <li nz-menu-divider></li>
+
+            <li nz-menu-item (click)="logout()" class="logout-menu-item">
+              <i class="fa-solid fa-right-from-bracket"></i>
+              <span>Logout</span>
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+
+      </div>
+    </nz-header>
+
+    <nz-content class="inner-content">
+      <router-outlet></router-outlet>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

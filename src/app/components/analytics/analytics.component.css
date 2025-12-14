@@ -1,0 +1,14 @@
+.stat-card {
+    background: linear-gradient(135deg, #b78fd1 0%, #966ab0 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+}
+
+::ng-deep .stat-card .ant-statistic-title {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+::ng-deep .stat-card .ant-statistic-content {
+    color: white;
+}
