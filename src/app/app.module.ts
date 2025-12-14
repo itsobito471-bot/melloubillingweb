@@ -8,7 +8,6 @@ import en from '@angular/common/locales/en';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 // NG-ZORRO imports
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -30,6 +29,23 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NZ_ICONS } from 'ng-zorro-antd/icon';
+import {
+  UserOutline,
+  PlusOutline,
+  CloseOutline,
+  SaveOutline,
+  ShoppingCartOutline,
+  FileTextOutline,
+  DeleteOutline,
+  CheckCircleOutline,
+  EditOutline,
+  HistoryOutline,
+  EnvironmentOutline,
+  TeamOutline,
+  FileAddOutline,
+  ShoppingOutline
+} from '@ant-design/icons-angular/icons';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BillingComponent } from './components/billing/billing.component';
@@ -37,6 +53,23 @@ import { InventoryComponent } from './components/inventory/inventory.component';
 import { AnalyticsComponent } from './components/analytics/analytics.component';
 import { ClientsComponent } from './components/clients/clients.component';
 import { AreasComponent } from './components/areas/areas.component';
+
+const icons = [
+  UserOutline,
+  PlusOutline,
+  CloseOutline,
+  SaveOutline,
+  ShoppingCartOutline,
+  FileTextOutline,
+  DeleteOutline,
+  CheckCircleOutline,
+  EditOutline,
+  HistoryOutline,
+  EnvironmentOutline,
+  TeamOutline,
+  FileAddOutline,
+  ShoppingOutline
+];
 
 registerLocaleData(en);
 
@@ -76,9 +109,13 @@ registerLocaleData(en);
     NzSpaceModule,
     NzTagModule,
     NzBadgeModule,
-    NzDropDownModule
+    NzDropDownModule,
+
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [
+    { provide: NZ_I18N, useValue: en_US },
+    { provide: NZ_ICONS, useValue: icons }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

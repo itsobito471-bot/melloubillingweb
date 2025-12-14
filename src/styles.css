@@ -38,10 +38,17 @@ body {
 }
 
 /* NG-ZORRO Overrides */
+
+/* Buttons */
+.ant-btn {
+    border-radius: 8px !important;
+}
+
 .ant-btn-primary {
     background: linear-gradient(135deg, #b78fd1, #966ab0) !important;
     border: none !important;
     transition: all 0.3s ease !important;
+    border-radius: 8px !important;
 }
 
 .ant-btn-primary:hover:not(:disabled),
@@ -51,17 +58,56 @@ body {
     box-shadow: 0 4px 12px rgba(183, 143, 209, 0.3) !important;
 }
 
+/* Inputs */
+.ant-input {
+    border-radius: 8px !important;
+}
+
 .ant-input:focus,
-.ant-input-focused,
+.ant-input-focused {
+    border-color: #b78fd1 !important;
+    box-shadow: 0 0 0 2px rgba(183, 143, 209, 0.1) !important;
+}
+
+/* Input Number */
+.ant-input-number {
+    border-radius: 8px !important;
+}
+
 .ant-input-number:focus,
 .ant-input-number-focused {
     border-color: #b78fd1 !important;
     box-shadow: 0 0 0 2px rgba(183, 143, 209, 0.1) !important;
 }
 
+/* Select */
+.ant-select-selector {
+    border-radius: 8px !important;
+}
+
 .ant-select-focused .ant-select-selector {
     border-color: #b78fd1 !important;
     box-shadow: 0 0 0 2px rgba(183, 143, 209, 0.1) !important;
+}
+
+/* Textarea */
+.ant-input-textarea textarea {
+    border-radius: 8px !important;
+}
+
+/* Dropdown */
+.ant-select-dropdown {
+    border-radius: 8px !important;
+}
+
+/* Modal */
+.ant-modal-content {
+    border-radius: 12px !important;
+}
+
+/* Pagination */
+.ant-pagination-item {
+    border-radius: 6px !important;
 }
 
 .ant-menu-item-selected {

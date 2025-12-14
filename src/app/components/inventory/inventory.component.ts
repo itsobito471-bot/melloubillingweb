@@ -14,6 +14,8 @@ export class InventoryComponent implements OnInit {
   productForm!: FormGroup;
   loading = false;
   tableLoading = false;
+  isEditing = false;
+  editingProductId: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -26,7 +28,7 @@ export class InventoryComponent implements OnInit {
     this.productForm = this.fb.group({
       name: ['', [Validators.required]],
       price: [null, [Validators.required, Validators.min(0)]],
-      stock: [0, [Validators.required, Validators.min(0)]],
+      // stock: [0, [Validators.required, Validators.min(0)]], // COMMENTED OUT - Stock not needed
       category: ['']
     });
     this.loadProducts();
@@ -49,18 +51,25 @@ export class InventoryComponent implements OnInit {
   submitForm(): void {
     if (this.productForm.valid) {
       this.loading = true;
-      this.appService.addProduct(this.productForm.value).subscribe({
-        next: () => {
-          this.message.success('Product added successfully');
-          this.productForm.reset({ stock: 0 });
-          this.loadProducts();
-          this.loading = false;
-        },
-        error: (error) => {
-          this.message.error('Failed to add product');
-          this.loading = false;
-        }
-      });
+
+      if (this.isEditing && this.editingProductId) {
+        // Update existing product
+        this.updateProduct();
+      } else {
+        // Add new product
+        this.appService.addProduct(this.productForm.value).subscribe({
+          next: () => {
+            this.message.success('Product added successfully');
+            this.productForm.reset();
+            this.loadProducts();
+            this.loading = false;
+          },
+          error: (error) => {
+            this.message.error('Failed to add product');
+            this.loading = false;
+          }
+        });
+      }
     } else {
       Object.values(this.productForm.controls).forEach(control => {
         if (control.invalid) {
@@ -69,6 +78,40 @@ export class InventoryComponent implements OnInit {
         }
       });
     }
+  }
+
+  editProduct(product: any): void {
+    this.isEditing = true;
+    this.editingProductId = product._id;
+    this.productForm.patchValue({
+      name: product.name,
+      price: product.price,
+      // stock: product.stock, // COMMENTED OUT
+      category: product.category
+    });
+  }
+
+  updateProduct(): void {
+    if (!this.editingProductId) return;
+
+    this.appService.updateProduct(this.editingProductId, this.productForm.value).subscribe({
+      next: () => {
+        this.message.success('Product updated successfully');
+        this.cancelEdit();
+        this.loadProducts();
+        this.loading = false;
+      },
+      error: () => {
+        this.message.error('Failed to update product');
+        this.loading = false;
+      }
+    });
+  }
+
+  cancelEdit(): void {
+    this.isEditing = false;
+    this.editingProductId = null;
+    this.productForm.reset();
   }
 
   deleteProduct(id: string): void {

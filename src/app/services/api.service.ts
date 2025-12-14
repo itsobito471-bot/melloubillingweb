@@ -122,6 +122,14 @@ export class AppService {
         return this.get('/bills');
     }
 
+    downloadBillPDF(billId: string): void {
+        const url = `${this.apiEndPoint}/bills/${billId}/pdf`;
+        const token = sessionStorage.getItem('accountAccessToken');
+
+        // Open PDF in new window with authorization header
+        window.open(`${url}?token=${token}`, '_blank');
+    }
+
     // Area methods
     getAreas(): Observable<any> {
         return this.get('/areas');

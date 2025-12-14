@@ -116,17 +116,19 @@ export class BillingComponent implements OnInit {
 
       if (!product) return;
 
-      if (quantity > product.stock) {
-        this.message.error('Insufficient stock!');
-        return;
-      }
+      // STOCK VALIDATION - COMMENTED OUT
+      // if (quantity > product.stock) {
+      //   this.message.error('Insufficient stock!');
+      //   return;
+      // }
 
       const existing = this.basket.find(i => i.product._id === product._id);
       if (existing) {
-        if ((existing.quantity + quantity) > product.stock) {
-          this.message.error('Insufficient stock!');
-          return;
-        }
+        // STOCK VALIDATION - COMMENTED OUT
+        // if ((existing.quantity + quantity) > product.stock) {
+        //   this.message.error('Insufficient stock!');
+        //   return;
+        // }
         existing.quantity += quantity;
       } else {
         this.basket.push({ product, quantity });
@@ -160,8 +162,25 @@ export class BillingComponent implements OnInit {
     };
 
     this.appService.createBill(payload).subscribe({
-      next: () => {
-        this.message.success('Bill created successfully!');
+      next: (bill) => {
+        this.message.success('Bill created successfully!', {
+          nzDuration: 5000
+        });
+
+        // Show download option
+        const messageId = this.message.info(
+          `Click here to download PDF`,
+          {
+            nzDuration: 10000,
+            nzPauseOnHover: true
+          }
+        );
+
+        // Download PDF automatically
+        setTimeout(() => {
+          this.downloadPDF(bill._id);
+        }, 500);
+
         this.basket = [];
         this.selectedClientId = '';
         this.loadData();
@@ -172,5 +191,9 @@ export class BillingComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  downloadPDF(billId: string): void {
+    this.appService.downloadBillPDF(billId);
   }
 }

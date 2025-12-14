@@ -95,8 +95,10 @@
                     <nz-select formControlName="productId" nzPlaceHolder="Select Product" nzShowSearch
                         style="width: 250px;">
                         <nz-option *ngFor="let product of products" [nzValue]="product._id"
-                            [nzLabel]="product.name + ' (₹' + product.price + ') - Stock: ' + product.stock"
-                            [nzDisabled]="product.stock <= 0"></nz-option>
+                            [nzLabel]="product.name + ' (₹' + product.price + ')'">
+                            <!-- Stock display commented out: [nzLabel]="product.name + ' (₹' + product.price + ') - Stock: ' + product.stock" -->
+                            <!-- Stock-based disabling commented out: [nzDisabled]="product.stock <= 0" -->
+                        </nz-option>
                     </nz-select>
                 </nz-form-control>
             </nz-form-item>
@@ -136,7 +138,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of basketTable.data; let i = index">
+                <tr *ngFor="let item of basket; let i = index">
                     <td>{{ item.product.name }}</td>
                     <td>{{ item.quantity }}</td>
                     <td>₹{{ item.product.price }}</td>

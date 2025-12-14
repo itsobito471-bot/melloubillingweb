@@ -13,7 +13,7 @@
                         </nz-form-control>
                     </nz-form-item>
                     <button nz-button nzType="primary" type="submit" [nzLoading]="loading">
-                        <i nz-icon nzType="plus"></i>
+                        <i nz-icon nzType="plus" nzTheme="outline"></i>
                         Add Area
                     </button>
                 </form>
@@ -44,7 +44,7 @@
                     </nz-form-item>
 
                     <button nz-button nzType="primary" type="submit" [nzLoading]="loading">
-                        <i nz-icon nzType="plus"></i>
+                        <i nz-icon nzType="plus" nzTheme="outline"></i>
                         Add Subarea
                     </button>
                 </form>
@@ -55,7 +55,7 @@
     <nz-divider></nz-divider>
 
     <!-- Areas Table -->
-    <h3><i nz-icon nzType="environment"></i> Areas</h3>
+    <h3><i nz-icon nzType="environment" nzTheme="outline"></i> Areas</h3>
     <nz-table #areasTable [nzData]="areas" [nzPageSize]="10" [nzScroll]="{ x: '500px' }" [nzLoading]="tableLoading">
         <thead>
             <tr>
@@ -83,7 +83,7 @@
     <nz-divider></nz-divider>
 
     <!-- Subareas Table -->
-    <h3><i nz-icon nzType="environment"></i> Subareas</h3>
+    <h3><i nz-icon nzType="environment" nzTheme="outline"></i> Subareas</h3>
     <nz-table #subareasTable [nzData]="getAllSubareas()" [nzPageSize]="10" [nzScroll]="{ x: '600px' }"
         [nzLoading]="tableLoading">
         <thead>
