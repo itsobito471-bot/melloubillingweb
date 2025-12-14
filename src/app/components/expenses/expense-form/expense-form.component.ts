@@ -85,7 +85,7 @@ export class ExpenseFormComponent implements OnInit {
         this.loading = false;
       } else {
         this.message.error('Expense not found');
-        this.router.navigate(['/expenses']);
+        this.router.navigate(['/expenses/all']);
       }
     });
   }
@@ -109,7 +109,7 @@ export class ExpenseFormComponent implements OnInit {
         this.appService.updateExpense(this.expenseId, data).subscribe({
           next: () => {
             this.message.success('Expense updated');
-            this.router.navigate(['/expenses']);
+            this.router.navigate(['/expenses/all']);
           },
           error: () => {
             this.message.error('Failed to update expense');
@@ -120,7 +120,7 @@ export class ExpenseFormComponent implements OnInit {
         this.appService.addExpense(data).subscribe({
           next: () => {
             this.message.success('Expense added');
-            this.router.navigate(['/expenses']);
+            this.router.navigate(['/expenses/all']);
           },
           error: () => {
             this.message.error('Failed to add expense');
@@ -139,6 +139,6 @@ export class ExpenseFormComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.router.navigate(['/expenses']);
+    this.router.navigate(['/expenses/all']);
   }
 }
