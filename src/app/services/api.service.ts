@@ -173,6 +173,24 @@ export class AppService {
         return this.get('/analytics');
     }
 
+    getDashboardStats(params?: any): Observable<any> {
+        let url = '/dashboard/stats';
+        if (params) {
+            const queryParams = new URLSearchParams();
+            Object.keys(params).forEach(key => {
+                if (params[key]) {
+                    if (params[key] instanceof Date) {
+                        queryParams.append(key, params[key].toISOString());
+                    } else {
+                        queryParams.append(key, params[key]);
+                    }
+                }
+            });
+            url += '?' + queryParams.toString();
+        }
+        return this.get(url);
+    }
+
     // Expense Categories methods
     getExpenseCategories(): Observable<any> {
         return this.get('/expenses/categories');

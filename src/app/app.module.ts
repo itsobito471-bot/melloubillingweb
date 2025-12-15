@@ -8,6 +8,7 @@ import en from '@angular/common/locales/en';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NgChartsModule } from 'ng2-charts';
 // NG-ZORRO imports
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -31,6 +32,7 @@ import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NZ_ICONS } from 'ng-zorro-antd/icon';
 import {
   UserOutline,
@@ -114,7 +116,8 @@ registerLocaleData(en);
     NzDropDownModule,
     NzDatePickerModule,
     NzToolTipModule,
-
+    NgChartsModule,
+    NzSpinModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

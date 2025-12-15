@@ -1,99 +1,68 @@
-.dashboard-container {
-    min-height: 60vh;
+:host {
+    display: block;
+    background-color: #f3f4f6;
+    /* Cool gray background */
+    min-height: 100vh;
+    padding-bottom: 24px;
+}
+
+.dashboard-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    padding: 20px;
+    margin-bottom: 24px;
 }
 
-.welcome-section {
-    text-align: center;
-    width: 100%;
-    max-width: 600px;
+.stat-card {
+    border-radius: 12px;
+    /* More rounded */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.025);
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(229, 231, 235, 0.5);
 }
 
-.logo-text {
-    font-size: 4rem;
-    font-weight: 700;
-    color: #b78fd1;
-    margin: 0;
-    font-family: 'Outfit', sans-serif;
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
 }
 
-.tagline {
-    font-size: 1.5rem;
-    color: #888;
-    margin: 10px 0 40px 0;
-    font-weight: 300;
-}
-
-.action-buttons {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 16px;
-}
-
-::ng-deep .action-buttons .ant-btn {
-    min-width: 180px;
-}
-
-::ng-deep .action-buttons .ant-btn-primary {
-    background: linear-gradient(135deg, #b78fd1, #966ab0);
+.net-income-card {
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    /* Dark gradient */
     border: none;
-    box-shadow: 0 10px 25px rgba(183, 143, 209, 0.3);
 }
 
-::ng-deep .action-buttons .ant-btn:not(.ant-btn-primary) {
-    border: 2px solid #b78fd1;
-    color: #b78fd1;
+.net-income-card ::ng-deep .ant-statistic-title {
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-size: 14px;
+    font-weight: 500;
 }
 
-::ng-deep .action-buttons .ant-btn i {
-    font-size: 18px;
-    margin-right: 8px;
+.net-income-card ::ng-deep .ant-statistic-content-value {
+    color: #ffffff !important;
 }
 
-@media (max-width: 768px) {
-    .logo-text {
-        font-size: 3.5rem;
-    }
-
-    .tagline {
-        font-size: 1.3rem;
-    }
-
-    ::ng-deep .action-buttons .ant-btn {
-        min-width: 160px;
-    }
+.chart-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.025);
+    border: 1px solid rgba(229, 231, 235, 0.5);
 }
 
-@media (max-width: 576px) {
-    .dashboard-container {
-        padding: 16px;
-    }
+.chart-card ::ng-deep .ant-card-head {
+    border-bottom: 1px solid #f3f4f6;
+    font-weight: 600;
+    font-size: 16px;
+    color: #374151;
+    min-height: 56px;
+}
 
-    .logo-text {
-        font-size: 2.5rem;
-    }
+.ant-statistic-title {
+    font-family: 'Inter', sans-serif;
+}
 
-    .tagline {
-        font-size: 1.1rem;
-        margin: 10px 0 30px 0;
-    }
-
-    .action-buttons {
-        gap: 12px;
-    }
-
-    ::ng-deep .action-buttons .ant-btn {
-        width: 100%;
-        min-width: auto;
-        height: 48px;
-        font-size: 16px;
-    }
-
-    ::ng-deep .action-buttons .ant-btn i {
-        font-size: 20px;
-    }
+.ant-statistic-content-value {
+    font-family: 'Inter', sans-serif;
 }

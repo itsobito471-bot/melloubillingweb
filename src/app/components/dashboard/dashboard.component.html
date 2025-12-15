@@ -1,17 +1,104 @@
-<div class="dashboard-container">
-    <div class="welcome-section">
-        <h1 class="logo-text">Mellou</h1>
-        <p class="tagline">Delicacy on Demand</p>
+<div style="padding: 24px;">
+    <div class="dashboard-header">
+        <h2 style="font-weight: bold; margin: 0;">Dashboard</h2>
+        <div class="filter">
+            <nz-range-picker [(ngModel)]="dateRange" (ngModelChange)="loadStats()"
+                [nzAllowClear]="false"></nz-range-picker>
+        </div>
+    </div>
 
-        <nz-space nzSize="large" class="action-buttons">
-            <button *nzSpaceItem nz-button nzType="primary" nzSize="large" routerLink="/billing">
-                <i nz-icon nzType="file-add" nzTheme="outline"></i>
-                New Bill
-            </button>
-            <button *nzSpaceItem nz-button nzSize="large" routerLink="/inventory">
-                <i nz-icon nzType="shopping" nzTheme="outline"></i>
-                Manage Inventory
-            </button>
-        </nz-space>
+    <!-- Summary Cards -->
+    <div nz-row [nzGutter]="24" class="summary-row" *ngIf="!loading; else loadingTpl">
+        <div nz-col [nzXs]="24" [nzSm]="8">
+            <nz-card [nzBordered]="false" class="stat-card">
+                <nz-statistic [nzValue]="(summary.income | currency:'INR')!" [nzTitle]="'Total Income'"
+                    [nzValueStyle]="{ color: '#3f8600', fontWeight: 'bold' }">
+                </nz-statistic>
+                <i nz-icon nzType="arrow-up"
+                    style="color:#3f8600; font-size: 24px; position: absolute; right: 24px; top: 24px;"></i>
+            </nz-card>
+        </div>
+        <div nz-col [nzXs]="24" [nzSm]="8">
+            <nz-card [nzBordered]="false" class="stat-card">
+                <nz-statistic [nzValue]="(summary.expenses | currency:'INR')!" [nzTitle]="'Total Expenses'"
+                    [nzValueStyle]="{ color: '#cf1322', fontWeight: 'bold' }">
+                </nz-statistic>
+                <i nz-icon nzType="arrow-down"
+                    style="color:#cf1322; font-size: 24px; position: absolute; right: 24px; top: 24px;"></i>
+            </nz-card>
+        </div>
+        <div nz-col [nzXs]="24" [nzSm]="8">
+            <nz-card [nzBordered]="false" class="stat-card net-income-card">
+                <nz-statistic [nzValue]="(summary.netIncome | currency:'INR')!" [nzTitle]="'Net Income'"
+                    [nzValueStyle]="{ color: '#fff', fontWeight: 'bold' }">
+                </nz-statistic>
+                <div style="color: rgba(255,255,255,0.7); margin-top: 4px;">
+                    Total Assets: {{ summary.netIncome | currency:'INR' }}
+                </div>
+            </nz-card>
+        </div>
+    </div>
+
+    <ng-template #loadingTpl>
+        <div style="text-align: center; padding: 48px;">
+            <nz-spin nzSimple nzSize="large"></nz-spin>
+        </div>
+    </ng-template>
+
+    <div *ngIf="!loading">
+        <!-- Charts Row 1: Trend & Net Income Bar -->
+        <div nz-row [nzGutter]="24" style="margin-top: 24px;">
+            <!-- Sales Trend -->
+            <div nz-col [nzXs]="24" [nzLg]="16">
+                <nz-card nzTitle="Sales Trend" [nzBordered]="false" class="chart-card">
+                    <div style="height: 350px;">
+                        <canvas baseChart [data]="salesTrendData" [options]="chartOptions" [type]="lineChartType">
+                        </canvas>
+                    </div>
+                </nz-card>
+            </div>
+
+            <!-- Net Income Bar -->
+            <div nz-col [nzXs]="24" [nzLg]="8">
+                <nz-card nzTitle="Net Income" [nzBordered]="false" class="chart-card">
+                    <div style="height: 350px;">
+                        <canvas baseChart [data]="netIncomeData" [options]="chartOptions" [type]="barChartType">
+                        </canvas>
+                    </div>
+                </nz-card>
+            </div>
+        </div>
+
+        <!-- Charts Row 2: Route & Retail -->
+        <div nz-row [nzGutter]="24" style="margin-top: 24px;">
+            <div nz-col [nzXs]="24" [nzLg]="12">
+                <nz-card nzTitle="Route Sales (Top Subareas)" [nzBordered]="false" class="chart-card">
+                    <div style="height: 300px;">
+                        <canvas baseChart [data]="routeSalesData" [options]="chartOptions" [type]="barChartType">
+                        </canvas>
+                    </div>
+                </nz-card>
+            </div>
+            <div nz-col [nzXs]="24" [nzLg]="12">
+                <nz-card nzTitle="Retail Sales (Top Clients)" [nzBordered]="false" class="chart-card">
+                    <div style="height: 300px;">
+                        <canvas baseChart [data]="retailSalesData" [options]="chartOptions" [type]="barChartType">
+                        </canvas>
+                    </div>
+                </nz-card>
+            </div>
+        </div>
+
+        <!-- Charts Row 3: Regional -->
+        <div nz-row [nzGutter]="24" style="margin-top: 24px;">
+            <div nz-col [nzSpan]="24">
+                <nz-card nzTitle="Regional Sales" [nzBordered]="false" class="chart-card">
+                    <div style="height: 300px;">
+                        <canvas baseChart [data]="regionalSalesData" [options]="chartOptions" [type]="barChartType">
+                        </canvas>
+                    </div>
+                </nz-card>
+            </div>
+        </div>
     </div>
 </div>
