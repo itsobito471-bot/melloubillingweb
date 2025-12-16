@@ -41,6 +41,7 @@ export class ClientFormComponent implements OnInit {
   initForm(): void {
     this.clientForm = this.fb.group({
       code: ['', [Validators.required]],
+      gstin: [''],
       name: ['', [Validators.required]],
       phone: ['', [Validators.required]],
       area: [''],
@@ -84,6 +85,7 @@ export class ClientFormComponent implements OnInit {
   patchForm(client: any): void {
     this.clientForm.patchValue({
       code: client.code,
+      gstin: client.gstin,
       name: client.name,
       phone: client.phone,
       area: client.area,

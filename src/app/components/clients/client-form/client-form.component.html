@@ -11,11 +11,22 @@
     <form nz-form [formGroup]="clientForm" nzLayout="vertical">
         <div nz-row [nzGutter]="24">
             <!-- Client Code -->
-            <div nz-col [nzXs]="24" [nzMd]="12">
+            <div nz-col [nzXs]="24" [nzMd]="8">
                 <nz-form-item>
                     <nz-form-label nzRequired>Client Code</nz-form-label>
                     <nz-form-control nzErrorTip="Please enter client code">
                         <input nz-input formControlName="code" placeholder="e.g. C001"
+                            style="text-transform: uppercase;" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- GSTIN -->
+            <div nz-col [nzXs]="24" [nzMd]="8">
+                <nz-form-item>
+                    <nz-form-label>GSTIN</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="gstin" placeholder="GST Number"
                             style="text-transform: uppercase;" />
                     </nz-form-control>
                 </nz-form-item>

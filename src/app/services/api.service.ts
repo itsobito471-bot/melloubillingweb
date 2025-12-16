@@ -208,6 +208,15 @@ export class AppService {
         return this.delete(`/expenses/categories/${id}`);
     }
 
+    // Settings methods
+    getSettings(): Observable<any> {
+        return this.get('/settings');
+    }
+
+    updateSettings(data: any): Observable<any> {
+        return this.post('/settings', data);
+    }
+
     // Expenses methods
     getExpenses(params?: any): Observable<any> {
         let url = '/expenses';

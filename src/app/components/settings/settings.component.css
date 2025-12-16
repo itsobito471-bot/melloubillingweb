@@ -1,0 +1,42 @@
+.settings-container {
+    padding: 24px;
+    background-color: #f3f4f6;
+    /* Match dashboard background */
+    min-height: 100vh;
+}
+
+.header {
+    margin-bottom: 32px;
+}
+
+.header h2 {
+    font-size: 24px;
+    color: #1f1f1f;
+}
+
+.subtitle {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.settings-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.025);
+    border: 1px solid rgba(229, 231, 235, 0.5);
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.form-actions {
+    margin-top: 24px;
+    text-align: right;
+    border-top: 1px solid #f3f4f6;
+    padding-top: 16px;
+}

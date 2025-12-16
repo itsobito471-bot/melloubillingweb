@@ -67,6 +67,12 @@
           <span *ngIf="!isCollapsed">Expenses</span>
         </a>
       </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/settings">
+          <i class="fa-solid fa-gear"></i>
+          <span *ngIf="!isCollapsed">Settings</span>
+        </a>
+      </li>
 
       <li class="menu-spacer" style="flex-grow: 1; pointer-events: none; min-height: 20px;"></li>
 
@@ -109,6 +115,10 @@
 
         <nz-dropdown-menu #userMenu="nzDropdownMenu">
           <ul nz-menu class="user-dropdown-menu">
+            <li nz-menu-item routerLink="/settings">
+              <i class="fa-solid fa-gear"></i>
+              <span>Settings</span>
+            </li>
             <li nz-menu-item>
               <i class="fa-solid fa-key"></i>
               <span>Change Password</span>
