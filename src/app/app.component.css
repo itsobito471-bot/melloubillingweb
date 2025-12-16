@@ -419,10 +419,27 @@
 }
 
 /* Responsive adjustments */
+@media (max-width: 992px) {
+
+    /* Tablet & Mobile: Default collapse handled by nz-sider */
+}
+
 @media (max-width: 768px) {
     .top-header {
         padding: 0 16px;
+        left: 80px;
+        /* Assume collapsed on mobile/tablet */
     }
+
+    /* When sidebar is open on small screens (overlay mode not implemented here, assumed 80px or 256px push) */
+    /* If nz-sider is collapsed, it has width 80px. */
+
+    .right-layout {
+        margin-left: 80px;
+        /* Force margin to match collapsed sidebar */
+    }
+
+    /* Override any specific left margin if sidebar expands on overlay (not relevant for default sider) */
 
     .user-details {
         display: none;
@@ -430,5 +447,55 @@
 
     .header-right {
         gap: 12px;
+    }
+
+    .collapse-trigger {
+        /* Hide trigger on mobile if we want to enforce collapsed state or just adjust position */
+        /* Currently it stays at fixed pos */
+        left: 68px !important;
+        /* Force position near collapsed sider */
+    }
+}
+
+@media (max-width: 576px) {
+    /* Large Mobile adjustments */
+
+    /* Make the collapsed sidebar smaller or hidden? 
+       NG-ZORRO sider with [nzCollapsedWidth]="80" takes 80px. 
+       On 360px screen, 80px is ~22%. Acceptable. 
+    */
+
+    .inner-content {
+        padding: 16px;
+        /* Decrease padding */
+    }
+
+    /* Hide logo text in header if needed */
+    .logo-text {
+        font-size: 1.1rem;
+    }
+
+    /* Force table font size smaller gloablly if not handled by components */
+    ::ng-deep .ant-table {
+        font-size: 13px;
+    }
+
+    /* Adjust buttons in headers */
+    .header-actions button {
+        margin-bottom: 8px;
+        /* space out stacked buttons */
+        width: 100%;
+        /* Full width buttons on mobile */
+    }
+
+    /* Adjust grid spacing in forms */
+    ::ng-deep .ant-form-item {
+        margin-bottom: 16px;
+    }
+
+    /* Fix modal width */
+    ::ng-deep .ant-modal {
+        max-width: 95vw;
+        margin: 0 auto;
     }
 }

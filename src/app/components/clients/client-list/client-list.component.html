@@ -1,5 +1,5 @@
 <nz-card nzTitle="Clients Management">
-    <div class="header-actions" nz-row [nzGutter]="16" style="margin-bottom: 24px;">
+    <div class="header-actions" nz-row [nzGutter]="[16, 16]" style="margin-bottom: 24px;">
         <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
             <nz-input-group [nzPrefix]="prefixTemplate">
                 <input type="text" nz-input placeholder="Search by name, phone or code" [(ngModel)]="searchText" />
@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <nz-table #basicTable [nzData]="filteredClients" [nzLoading]="loading">
+    <nz-table #basicTable [nzData]="filteredClients" [nzLoading]="loading" [nzScroll]="{ x: '800px' }">
         <thead>
             <tr>
                 <th>Code</th>

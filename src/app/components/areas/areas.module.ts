@@ -17,6 +17,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
     NzInputModule,
     NzSelectModule,
     NzTagModule,
-    NzGridModule
+    NzGridModule,
+    NzSpaceModule
   ]
 })
 export class AreasModule { }
