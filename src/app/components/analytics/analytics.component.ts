@@ -8,10 +8,20 @@ import { AppService } from '../../services/api.service';
 })
 export class AnalyticsComponent implements OnInit {
   data: any = null;
+  loading = true;
 
   constructor(private appService: AppService) { }
 
   ngOnInit(): void {
-    this.appService.getAnalytics().subscribe((d: any) => this.data = d);
+    this.loading = true;
+    this.appService.getAnalytics().subscribe({
+      next: (d: any) => {
+        this.data = d;
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+      }
+    });
   }
 }

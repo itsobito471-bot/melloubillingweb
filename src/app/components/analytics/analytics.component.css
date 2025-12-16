@@ -1,14 +1,171 @@
+.analytics-container {
+    padding: 24px;
+    background-color: #f3f4f6;
+    /* Match dashboard background */
+    min-height: 100vh;
+}
+
+.header {
+    margin-bottom: 32px;
+}
+
+.header h2 {
+    font-size: 24px;
+    color: #1f1f1f;
+}
+
+.subtitle {
+    color: #6b7280;
+    /* Cool gray text */
+    font-size: 14px;
+}
+
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+}
+
+/* Stat Cards */
 .stat-card {
-    background: linear-gradient(135deg, #b78fd1 0%, #966ab0 100%);
-    color: white;
-    border: none;
     border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.025);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    /* Match Net Income card */
+    border: none;
 }
 
-::ng-deep .stat-card .ant-statistic-title {
-    color: rgba(255, 255, 255, 0.9);
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
 }
 
-::ng-deep .stat-card .ant-statistic-content {
+.stat-content {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 16px;
+}
+
+.stat-icon i {
+    font-size: 24px;
     color: white;
+}
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-label {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.stat-value {
+    margin: 0;
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* Table Section */
+.section-header {
+    margin-bottom: 16px;
+}
+
+.section-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.table-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(229, 231, 235, 0.5);
+    overflow: hidden;
+    /* Ensure rounded corners clip content */
+}
+
+.table-row {
+    transition: background-color 0.2s;
+}
+
+.table-row:hover {
+    background-color: #f9fafb;
+}
+
+.client-info {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    /* Prevent wrapping for names */
+}
+
+.client-name {
+    font-weight: 500;
+    color: #1f2937;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.date-text {
+    color: #6b7280;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.amount-text {
+    font-weight: 600;
+    color: #059669;
+    /* Darker green for better contrast */
+    white-space: nowrap;
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .analytics-container {
+        padding: 16px;
+    }
+
+    .stat-value {
+        font-size: 20px;
+    }
+
+    .header h2 {
+        font-size: 20px;
+    }
 }

@@ -1,30 +1,69 @@
-<nz-card nzTitle="Analytics Dashboard">
-    <div *ngIf="data" nz-row [nzGutter]="[16, 16]">
-        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
-            <nz-card class="stat-card">
-                <nz-statistic nzTitle="Total Revenue" [nzValue]="data.totalRevenue" nzPrefix="₹"
-                    [nzValueStyle]="{ color: '#b78fd1' }"></nz-statistic>
-            </nz-card>
-        </div>
+<div class="analytics-container">
+    <div class="header">
+        <h2 style="font-weight: 700; margin-bottom: 0;">Analytics Dashboard</h2>
+        <span class="subtitle">Overview of your business performance</span>
     </div>
 
-    <nz-divider></nz-divider>
+    <div *ngIf="loading" class="loader-container">
+        <nz-spin nzSimple nzSize="large"></nz-spin>
+    </div>
 
-    <h3><i nz-icon nzType="history" nzTheme="outline"></i> Recent Transactions</h3>
-    <nz-table *ngIf="data" [nzData]="data.recentBills" [nzPageSize]="5" [nzScroll]="{ x: '500px' }">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Client</th>
-                <th>Amount</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let bill of data.recentBills">
-                <td>{{ bill.date | date:'medium' }}</td>
-                <td>{{ bill.client?.name || 'Unknown' }}</td>
-                <td><strong>₹{{ bill.finalAmount }}</strong></td>
-            </tr>
-        </tbody>
-    </nz-table>
-</nz-card>
+    <div *ngIf="!loading && data" class="content fade-in">
+        <div nz-row [nzGutter]="[24, 24]" style="margin-bottom: 32px;">
+            <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+                <nz-card class="stat-card" [nzBordered]="false">
+                    <div class="stat-content">
+                        <div class="stat-icon">
+                            <i nz-icon nzType="wallet" nzTheme="fill"></i>
+                        </div>
+                        <div class="stat-info">
+                            <p class="stat-label">Total Revenue</p>
+                            <h3 class="stat-value">{{ data.totalRevenue | currency:'INR' }}</h3>
+                        </div>
+                    </div>
+                </nz-card>
+            </div>
+            <!-- Placeholder for future stats to balance the grid -->
+            <!-- <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+                <nz-card class="stat-card secondary" [nzBordered]="false">
+                     ...
+                </nz-card>
+            </div> -->
+        </div>
+
+        <div class="section-header">
+            <h3>Recent Transactions</h3>
+        </div>
+
+        <nz-card class="table-card" [nzBordered]="false">
+            <nz-table #basicTable [nzData]="data.recentBills" [nzPageSize]="5" [nzShowSizeChanger]="false"
+                [nzScroll]="{ x: '600px' }">
+                <thead>
+                    <tr>
+                        <th nzWidth="30%">Date</th>
+                        <th nzWidth="40%">Client</th>
+                        <th nzWidth="30%" nzAlign="right">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let bill of basicTable.data" class="table-row">
+                        <td>
+                            <span class="date-text">{{ bill.date | date:'MMM d, y, h:mm a' }}</span>
+                        </td>
+                        <td>
+                            <div class="client-info">
+                                <nz-avatar [nzText]="bill.client?.name?.charAt(0) || 'U'"
+                                    [style.background-color]="'#f56a00'" style="margin-right: 8px;"
+                                    nzSize="small"></nz-avatar>
+                                <span class="client-name">{{ bill.client?.name || 'Unknown Client' }}</span>
+                            </div>
+                        </td>
+                        <td nzAlign="right">
+                            <span class="amount-text">{{ bill.finalAmount | currency:'INR' }}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </nz-card>
+    </div>
+</div>

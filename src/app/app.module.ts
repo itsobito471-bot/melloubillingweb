@@ -34,6 +34,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NZ_ICONS } from 'ng-zorro-antd/icon';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import {
   UserOutline,
   PlusOutline,
@@ -51,7 +52,8 @@ import {
   ShoppingOutline,
   SearchOutline,
   DownloadOutline,
-  ArrowLeftOutline
+  ArrowLeftOutline,
+  WalletFill
 } from '@ant-design/icons-angular/icons';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -75,7 +77,8 @@ const icons = [
   ShoppingOutline,
   SearchOutline,
   DownloadOutline,
-  ArrowLeftOutline
+  ArrowLeftOutline,
+  WalletFill
 ];
 
 registerLocaleData(en);
@@ -117,7 +120,8 @@ registerLocaleData(en);
     NzDatePickerModule,
     NzToolTipModule,
     NgChartsModule,
-    NzSpinModule
+    NzSpinModule,
+    NzAvatarModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
