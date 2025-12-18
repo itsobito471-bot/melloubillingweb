@@ -83,8 +83,10 @@ export class BillListComponent implements OnInit {
   }
 
   downloadPDF(billId: string): void {
+    this.loading = true;
     this.appService.downloadBillPDF(billId);
     this.message.success('Downloading PDF...');
+    this.loading = false;
   }
 
   getTotal(bill: any): number {
