@@ -1,0 +1,90 @@
+<div class="page-container">
+    <nz-page-header class="site-page-header" nzTitle="User Management" nzSubtitle="Create and manage application users">
+        <nz-page-header-extra>
+            <button nz-button nzType="primary" (click)="showModal()">
+                <i nz-icon nzType="plus"></i> Add User
+            </button>
+        </nz-page-header-extra>
+    </nz-page-header>
+
+    <nz-card>
+        <nz-table #basicTable [nzData]="users" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="pageIndex"
+            [(nzPageSize)]="pageSize" [nzFrontPagination]="false" (nzQueryParamsChange)="onQueryParamsChange($event)">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of basicTable.data">
+                    <td>{{ data.username }}</td>
+                    <td>{{ data.email }}</td>
+                    <td>
+                        <nz-tag [nzColor]="data.role === 'admin' ? 'volcano' : 'blue'">
+                            {{ data.role | uppercase }}
+                        </nz-tag>
+                    </td>
+                    <td>
+                        <nz-tag [nzColor]="data.status === 'active' ? 'success' : 'error'">
+                            {{ data.status | uppercase }}
+                        </nz-tag>
+                    </td>
+                    <td>{{ data.createdAt | date:'medium' }}</td>
+                    <td>
+                        <button nz-button nzType="default" [nzDanger]="data.status === 'active'" nz-popconfirm
+                            [nzPopconfirmTitle]="data.status === 'active' ? 'Are you sure to revoke access?' : 'Are you sure to restore access?'"
+                            (nzOnConfirm)="toggleStatus(data)">
+                            {{ data.status === 'active' ? 'Revoke Access' : 'Restore Access' }}
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </nz-card>
+
+    <nz-modal [(nzVisible)]="isModalVisible" nzTitle="Create New User" (nzOnCancel)="handleCancel()"
+        (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading" [nzWidth]="480">
+        <div *nzModalContent>
+            <form nz-form [formGroup]="userForm" nzLayout="vertical">
+                <nz-form-item>
+                    <nz-form-label nzRequired nzFor="username">Username</nz-form-label>
+                    <nz-form-control nzErrorTip="Please input username!">
+                        <input nz-input formControlName="username" id="username" placeholder="Enter username" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzRequired nzFor="email">Email</nz-form-label>
+                    <nz-form-control [nzErrorTip]="emailErrorTpl">
+                        <input nz-input formControlName="email" id="email" placeholder="Enter email address" />
+                        <ng-template #emailErrorTpl let-control>
+                            <ng-container *ngIf="control.hasError('email')">The input is not valid
+                                E-mail!</ng-container>
+                            <ng-container *ngIf="control.hasError('required')">Please input E-mail!</ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzRequired nzFor="password">Password</nz-form-label>
+                    <nz-form-control nzErrorTip="Password must be at least 6 characters!">
+                        <input nz-input type="password" formControlName="password" id="password"
+                            placeholder="Enter password" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzRequired nzFor="role">Role</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="role" id="role" nzPlaceHolder="Select a role">
+                            <nz-option nzValue="user" nzLabel="User"></nz-option>
+                            <nz-option nzValue="admin" nzLabel="Admin"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+    </nz-modal>
+</div>

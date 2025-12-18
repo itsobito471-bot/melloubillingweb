@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
@@ -48,6 +49,11 @@ const routes: Routes = [
     path: 'settings',
     loadChildren: () => import('./components/settings/settings.module').then(m => m.SettingsModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'users',
+    loadChildren: () => import('./components/users/users.module').then(m => m.UsersModule),
+    canActivate: [AuthGuard, AdminGuard]
   },
   { path: '**', redirectTo: '/dashboard' }
 ];

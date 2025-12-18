@@ -1,0 +1,37 @@
+.page-container {
+    padding: 24px;
+}
+
+.site-page-header {
+    background: #fff;
+    margin-bottom: 24px;
+    border: 1px solid rgb(235, 237, 240);
+    border-radius: 8px;
+}
+
+nz-card {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.ant-tag {
+    min-width: 60px;
+    text-align: center;
+}
+
+nz-form-item {
+    margin-bottom: 16px;
+}
+
+nz-form-label {
+    padding-bottom: 4px !important;
+}
+
+nz-modal ::ng-deep .ant-modal-footer {
+    border-top: none;
+    padding: 16px 24px;
+}
+
+nz-modal ::ng-deep .ant-modal-header {
+    border-bottom: 1px solid #f0f0f0;
+}

@@ -21,6 +21,10 @@ export class AppComponent {
     return this.appService.getCurrentUser();
   }
 
+  get isAdmin(): boolean {
+    return this.currentUser?.role === 'admin';
+  }
+
   getUserInitials(): string {
     const user = this.currentUser;
     if (!user || !user.username) return 'A';

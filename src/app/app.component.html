@@ -69,12 +69,19 @@
           <span *ngIf="!isCollapsed">Expenses</span>
         </a>
       </li>
+      <li *ngIf="isAdmin" nz-menu-item nzMatchRouter>
+        <a routerLink="/users">
+          <i class="fa-solid fa-user-shield"></i>
+          <span *ngIf="!isCollapsed">User Management</span>
+        </a>
+      </li>
       <li nz-menu-item nzMatchRouter>
         <a routerLink="/settings">
           <i class="fa-solid fa-gear"></i>
           <span *ngIf="!isCollapsed">Settings</span>
         </a>
       </li>
+
 
       <li class="menu-spacer" style="flex-grow: 1; pointer-events: none; min-height: 20px;"></li>
 

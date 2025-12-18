@@ -255,4 +255,17 @@ export class AppService {
     deleteExpense(id: string): Observable<any> {
         return this.delete(`/expenses/${id}`);
     }
+
+    // User Management methods
+    getUsers(page: number = 1, limit: number = 10): Observable<any> {
+        return this.get(`/users?page=${page}&limit=${limit}`);
+    }
+
+    createUser(data: any): Observable<any> {
+        return this.post('/users', data);
+    }
+
+    toggleUserStatus(id: string): Observable<any> {
+        return this.patch(`/users/${id}/status`, {});
+    }
 }
