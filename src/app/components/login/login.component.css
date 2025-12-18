@@ -1,5 +1,6 @@
 .login-container {
-    min-height: 100vh;
+    height: 100vh;
+    width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -7,6 +8,7 @@
     padding: 20px;
     position: relative;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 /* Background Decoration */
@@ -92,15 +94,15 @@
 
 .logo-section {
     text-align: center;
-    margin-bottom: 35px;
-    padding-bottom: 25px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
     border-bottom: 2px solid #f0f0f0;
 }
 
 .login-logo-container {
     width: 80px;
     height: 80px;
-    margin: 0 auto 15px auto;
+    margin: 0 auto 10px auto;
 }
 
 .login-logo-img {
@@ -132,14 +134,14 @@
 
 .form-header {
     text-align: center;
-    margin-bottom: 35px;
+    margin-bottom: 20px;
 }
 
 .form-header h2 {
     font-size: 1.8rem;
     font-weight: 700;
     color: #2c3e50;
-    margin: 0 0 8px 0;
+    margin: 0 0 4px 0;
     font-family: 'Outfit', sans-serif;
 }
 
@@ -151,7 +153,7 @@
 }
 
 .login-button {
-    margin-top: 25px;
+    margin-top: 15px;
     height: 52px;
     font-size: 16px;
     font-weight: 600;
@@ -174,8 +176,8 @@
 
 .footer-text {
     text-align: center;
-    margin-top: 30px;
-    padding-top: 25px;
+    margin-top: 15px;
+    padding-top: 15px;
     border-top: 2px solid #f0f0f0;
     color: #95a5a6;
     font-size: 0.95rem;
@@ -195,11 +197,11 @@
 
 /* NG-ZORRO Overrides */
 ::ng-deep .login-card .ant-card-body {
-    padding: 45px;
+    padding: 30px;
 }
 
 ::ng-deep .ant-form-item {
-    margin-bottom: 22px;
+    margin-bottom: 16px;
 }
 
 ::ng-deep .ant-form-item-label>label {
@@ -259,9 +261,7 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .login-card {
-        max-width: 100%;
-    }
+
 
     .logo-text {
         font-size: 3rem;
@@ -272,7 +272,7 @@
     }
 
     ::ng-deep .login-card .ant-card-body {
-        padding: 35px 25px;
+        padding: 30px;
     }
 
     .circle-1 {
@@ -292,12 +292,50 @@
 }
 
 @media (max-width: 480px) {
+    .login-container {
+        padding: 15px;
+    }
+
     .login-card {
         border-radius: 20px;
     }
 
+    .login-logo-container {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 8px;
+    }
+
     .logo-text {
-        font-size: 2.5rem;
+        font-size: 2rem;
+    }
+
+    .tagline {
+        font-size: 0.9rem;
+    }
+
+    .form-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .form-header p {
+        font-size: 0.9rem;
+    }
+
+    .login-button {
+        height: 45px;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    .footer-text {
+        margin-top: 10px;
+        padding-top: 10px;
+        font-size: 0.85rem;
+    }
+
+    ::ng-deep .ant-form-item {
+        margin-bottom: 12px;
     }
 
     .tagline {
@@ -314,7 +352,7 @@
     }
 
     ::ng-deep .login-card .ant-card-body {
-        padding: 30px 20px;
+        padding: 20px;
     }
 
     .circle-1 {
