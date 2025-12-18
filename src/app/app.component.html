@@ -99,23 +99,57 @@
     <nz-header class="top-header">
       <div class="header-right">
         <!-- Notification Icon with Badge -->
-        <nz-badge [nzCount]="notificationCount" [nzOverflowCount]="99" class="notification-badge">
+        <nz-badge [nzCount]="unreadCount" [nzOverflowCount]="99" class="notification-badge" nz-dropdown
+          [nzDropdownMenu]="notifMenu" nzTrigger="click" nzPlacement="bottomRight">
           <button nz-button nzType="text" class="notification-btn">
             <i class="fa-solid fa-bell"></i>
           </button>
         </nz-badge>
 
-        <!-- User Profile Dropdown -->
+        <nz-dropdown-menu #notifMenu="nzDropdownMenu">
+          <div class="notification-dropdown">
+            <div class="notif-header">
+              <span>Notifications</span>
+              <a (click)="markAllAsRead()">Mark all as read</a>
+            </div>
+            <div class="notif-body">
+              <div *ngIf="notifications.length === 0" class="empty-notif">
+                <i class="fa-solid fa-bell-slash"></i>
+                <p>No new notifications</p>
+              </div>
+              <div *ngFor="let n of notifications" class="notif-item" [class.unread]="!n.isRead"
+                (click)="markAsRead(n)">
+                <div class="notif-icon" [ngClass]="n.type">
+                  <i class="fa-solid" [ngClass]="{
+                    'fa-info-circle': n.type === 'info',
+                    'fa-check-circle': n.type === 'success',
+                    'fa-exclamation-triangle': n.type === 'warning',
+                    'fa-times-circle': n.type === 'error'
+                  }"></i>
+                </div>
+                <div class="notif-content">
+                  <div class="notif-title">{{ n.title }}</div>
+                  <div class="notif-message">{{ n.message }}</div>
+                  <div class="notif-time">{{ n.createdAt | date:'short' }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="notif-footer">
+              <a routerLink="/notifications">View all notifications</a>
+            </div>
+          </div>
+        </nz-dropdown-menu>
+
         <!-- User Profile Dropdown -->
         <div class="user-profile" nz-dropdown [nzDropdownMenu]="userMenu" nzPlacement="bottomRight">
           <div class="user-avatar">
             <span>{{ getUserInitials() }}</span>
           </div>
 
-          <div class="user-details">
+          <div class="user-details" [class.collapsed]="isCollapsed">
             <div class="user-name">{{ currentUser?.username }}</div>
             <div class="user-email">
-              {{ currentUser?.email || 'developer@gmail.com' }}
+              {{ currentUser?.email || 'user@example.com' }}
             </div>
           </div>
 
@@ -128,7 +162,7 @@
               <i class="fa-solid fa-gear"></i>
               <span>Settings</span>
             </li>
-            <li nz-menu-item>
+            <li nz-menu-item (click)="showPasswordModal()">
               <i class="fa-solid fa-key"></i>
               <span>Change Password</span>
             </li>
@@ -150,3 +184,37 @@
     </nz-content>
   </nz-layout>
 </nz-layout>
+
+<!-- Change Password Modal -->
+<nz-modal [(nzVisible)]="isPasswordModalVisible" nzTitle="Change Password" (nzOnCancel)="handlePasswordCancel()"
+  (nzOnOk)="handlePasswordOk()" [nzOkLoading]="isPasswordLoading" [nzWidth]="400">
+  <div *nzModalContent>
+    <form nz-form [formGroup]="passwordForm" nzLayout="vertical">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="currentPassword">Current Password</nz-form-label>
+        <nz-form-control nzErrorTip="Please input your current password!">
+          <input nz-input type="password" formControlName="currentPassword" id="currentPassword"
+            placeholder="Enter current password" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="newPassword">New Password</nz-form-label>
+        <nz-form-control nzErrorTip="Password must be at least 6 characters!">
+          <input nz-input type="password" formControlName="newPassword" id="newPassword"
+            placeholder="Enter new password" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="confirmPassword">Confirm New Password</nz-form-label>
+        <nz-form-control [nzErrorTip]="confirmErrorTpl">
+          <input nz-input type="password" formControlName="confirmPassword" id="confirmPassword"
+            placeholder="Confirm new password" />
+          <ng-template #confirmErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">Please confirm your password!</ng-container>
+            <ng-container *ngIf="control.hasError('mismatch')">Passwords do not match!</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</nz-modal>

@@ -268,4 +268,21 @@ export class AppService {
     toggleUserStatus(id: string): Observable<any> {
         return this.patch(`/users/${id}/status`, {});
     }
+
+    // Profile & Notifications methods
+    changePassword(data: any): Observable<any> {
+        return this.post('/auth/change-password', data);
+    }
+
+    getNotifications(): Observable<any> {
+        return this.get('/notifications');
+    }
+
+    markNotificationAsRead(id: string): Observable<any> {
+        return this.patch(`/notifications/${id}/read`, {});
+    }
+
+    markAllNotificationsAsRead(): Observable<any> {
+        return this.post('/notifications/read-all', {});
+    }
 }

@@ -311,6 +311,131 @@
     box-shadow: 0 2px 4px rgba(255, 77, 79, 0.3);
 }
 
+/* Notification Dropdown */
+.notification-dropdown {
+    width: 320px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.notif-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notif-header span {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.notif-header a {
+    font-size: 12px;
+    color: var(--primary-color);
+}
+
+.notif-body {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.empty-notif {
+    padding: 40px 0;
+    text-align: center;
+    color: #999;
+}
+
+.empty-notif i {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.notif-item {
+    padding: 12px 16px;
+    display: flex;
+    gap: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-bottom: 1px solid #f9f9f9;
+}
+
+.notif-item:hover {
+    background: #f5f5f5;
+}
+
+.notif-item.unread {
+    background: rgba(183, 143, 209, 0.03);
+}
+
+.notif-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 14px;
+}
+
+.notif-icon.info {
+    background: #e6f7ff;
+    color: #1890ff;
+}
+
+.notif-icon.success {
+    background: #f6ffed;
+    color: #52c41a;
+}
+
+.notif-icon.warning {
+    background: #fffbe6;
+    color: #faad14;
+}
+
+.notif-icon.error {
+    background: #fff1f0;
+    color: #f5222d;
+}
+
+.notif-content {
+    flex: 1;
+}
+
+.notif-title {
+    font-weight: 500;
+    color: var(--text-dark);
+    font-size: 13px;
+    margin-bottom: 2px;
+}
+
+.notif-message {
+    font-size: 12px;
+    color: var(--text-default);
+    line-height: 1.4;
+    margin-bottom: 4px;
+}
+
+.notif-time {
+    font-size: 11px;
+    color: #b0b0b0;
+}
+
+.notif-footer {
+    padding: 8px;
+    text-align: center;
+    border-top: 1px solid #f0f0f0;
+}
+
+.notif-footer a {
+    font-size: 12px;
+    color: var(--primary-color);
+}
+
 /* User Profile */
 .user-profile {
     display: flex;
