@@ -16,6 +16,7 @@ export class UserListComponent implements OnInit {
     pageIndex = 1;
     isModalVisible = false;
     isOkLoading = false;
+    passwordVisible = false;
     userForm!: FormGroup;
 
     constructor(

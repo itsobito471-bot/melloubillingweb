@@ -193,22 +193,40 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="currentPassword">Current Password</nz-form-label>
         <nz-form-control nzErrorTip="Please input your current password!">
-          <input nz-input type="password" formControlName="currentPassword" id="currentPassword"
-            placeholder="Enter current password" />
+          <nz-input-group [nzSuffix]="currentSuffix">
+            <input nz-input [type]="currentPasswordVisible ? 'text' : 'password'" formControlName="currentPassword"
+              id="currentPassword" placeholder="Enter current password" />
+          </nz-input-group>
+          <ng-template #currentSuffix>
+            <i nz-icon [nzType]="currentPasswordVisible ? 'eye-invisible' : 'eye'"
+              (click)="currentPasswordVisible = !currentPasswordVisible"></i>
+          </ng-template>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label nzRequired nzFor="newPassword">New Password</nz-form-label>
         <nz-form-control nzErrorTip="Password must be at least 6 characters!">
-          <input nz-input type="password" formControlName="newPassword" id="newPassword"
-            placeholder="Enter new password" />
+          <nz-input-group [nzSuffix]="newSuffix">
+            <input nz-input [type]="newPasswordVisible ? 'text' : 'password'" formControlName="newPassword"
+              id="newPassword" placeholder="Enter new password" />
+          </nz-input-group>
+          <ng-template #newSuffix>
+            <i nz-icon [nzType]="newPasswordVisible ? 'eye-invisible' : 'eye'"
+              (click)="newPasswordVisible = !newPasswordVisible"></i>
+          </ng-template>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label nzRequired nzFor="confirmPassword">Confirm New Password</nz-form-label>
         <nz-form-control [nzErrorTip]="confirmErrorTpl">
-          <input nz-input type="password" formControlName="confirmPassword" id="confirmPassword"
-            placeholder="Confirm new password" />
+          <nz-input-group [nzSuffix]="confirmSuffix">
+            <input nz-input [type]="confirmPasswordVisible ? 'text' : 'password'" formControlName="confirmPassword"
+              id="confirmPassword" placeholder="Confirm new password" />
+          </nz-input-group>
+          <ng-template #confirmSuffix>
+            <i nz-icon [nzType]="confirmPasswordVisible ? 'eye-invisible' : 'eye'"
+              (click)="confirmPasswordVisible = !confirmPasswordVisible"></i>
+          </ng-template>
           <ng-template #confirmErrorTpl let-control>
             <ng-container *ngIf="control.hasError('required')">Please confirm your password!</ng-container>
             <ng-container *ngIf="control.hasError('mismatch')">Passwords do not match!</ng-container>

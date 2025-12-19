@@ -14,6 +14,9 @@ export class AppComponent {
   notificationCount = 0;
   isPasswordModalVisible = false;
   isPasswordLoading = false;
+  currentPasswordVisible = false;
+  newPasswordVisible = false;
+  confirmPasswordVisible = false;
   passwordForm!: any; // Using FormBuilder
   notifications: any[] = [];
   unreadCount = 0;

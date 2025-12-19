@@ -32,9 +32,14 @@
             <nz-form-item>
                 <nz-form-label nzRequired>Password</nz-form-label>
                 <nz-form-control nzErrorTip="Please input your password!">
-                    <nz-input-group nzPrefixIcon="lock" nzSize="large">
-                        <input type="password" nz-input formControlName="password" placeholder="Enter your password" />
+                    <nz-input-group nzPrefixIcon="lock" nzSize="large" [nzSuffix]="suffixTemplate">
+                        <input [type]="passwordVisible ? 'text' : 'password'" nz-input formControlName="password"
+                            placeholder="Enter your password" />
                     </nz-input-group>
+                    <ng-template #suffixTemplate>
+                        <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                            (click)="passwordVisible = !passwordVisible"></i>
+                    </ng-template>
                 </nz-form-control>
             </nz-form-item>
 

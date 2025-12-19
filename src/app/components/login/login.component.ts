@@ -12,6 +12,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   loading = false;
+  passwordVisible = false;
 
   constructor(
     private fb: FormBuilder,
