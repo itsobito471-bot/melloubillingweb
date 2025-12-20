@@ -12,6 +12,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 
 const routes: Routes = [
     { path: '', component: SettingsComponent }
@@ -30,7 +31,8 @@ const routes: Routes = [
         NzButtonModule,
         NzMessageModule,
         NzSpinModule,
-        NzGridModule
+        NzGridModule,
+        NzInputNumberModule
     ]
 })
 export class SettingsModule { }

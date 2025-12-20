@@ -30,7 +30,12 @@ export class SettingsComponent implements OnInit {
             gstin: [''], // Company's own GSTIN
             address: [''],
             phone: [''],
-            email: ['', [Validators.email]]
+            email: ['', [Validators.email]],
+            cgstPercentage: [2.5, [Validators.required, Validators.min(0), Validators.max(100)]],
+            sgstPercentage: [2.5, [Validators.required, Validators.min(0), Validators.max(100)]],
+            accountName: [''],
+            accountNo: [''],
+            ifscCode: ['']
         });
     }
 

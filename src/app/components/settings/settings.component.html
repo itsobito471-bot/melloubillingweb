@@ -48,12 +48,66 @@
                         </nz-form-item>
                     </div>
 
+                    <div nz-col [nzXs]="24" [nzMd]="12">
+                        <nz-form-item>
+                            <nz-form-label nzRequired>CGST (%)</nz-form-label>
+                            <nz-form-control nzErrorTip="Please enter CGST percentage">
+                                <nz-input-number style="width: 100%;" formControlName="cgstPercentage" [nzMin]="0"
+                                    [nzMax]="100" [nzStep]="0.1" nzPlaceHolder="e.g. 2.5"></nz-input-number>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzXs]="24" [nzMd]="12">
+                        <nz-form-item>
+                            <nz-form-label nzRequired>SGST (%)</nz-form-label>
+                            <nz-form-control nzErrorTip="Please enter SGST percentage">
+                                <nz-input-number style="width: 100%;" formControlName="sgstPercentage" [nzMin]="0"
+                                    [nzMax]="100" [nzStep]="0.1" nzPlaceHolder="e.g. 2.5"></nz-input-number>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
                     <div nz-col [nzSpan]="24">
                         <nz-form-item>
                             <nz-form-label>Address</nz-form-label>
                             <nz-form-control>
                                 <textarea nz-input formControlName="address" rows="3"
                                     placeholder="Business Address"></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+
+                <div nz-row [nzGutter]="24" style="margin-top: 24px;">
+                    <div nz-col [nzSpan]="24">
+                        <h3 class="section-title">Banking Information</h3>
+                    </div>
+
+                    <div nz-col [nzXs]="24" [nzMd]="8">
+                        <nz-form-item>
+                            <nz-form-label>Account Name</nz-form-label>
+                            <nz-form-control>
+                                <input nz-input formControlName="accountName" placeholder="Mellou" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzXs]="24" [nzMd]="8">
+                        <nz-form-item>
+                            <nz-form-label>Account Number</nz-form-label>
+                            <nz-form-control>
+                                <input nz-input formControlName="accountNo" placeholder="Account Number" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col [nzXs]="24" [nzMd]="8">
+                        <nz-form-item>
+                            <nz-form-label>IFSC Code</nz-form-label>
+                            <nz-form-control>
+                                <input nz-input formControlName="ifscCode" placeholder="HDFC0000295"
+                                    style="text-transform: uppercase;" />
                             </nz-form-control>
                         </nz-form-item>
                     </div>
