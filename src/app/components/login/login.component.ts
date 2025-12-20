@@ -36,8 +36,9 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.loading = true;
       const { username, password } = this.loginForm.value;
+      const lowercaseUsername = username.toLowerCase();
 
-      this.appService.login(username, password).subscribe({
+      this.appService.login(lowercaseUsername, password).subscribe({
         next: (response) => {
           sessionStorage.setItem('accountAccessToken', response.token);
           sessionStorage.setItem('currentUser', JSON.stringify(response.user));
