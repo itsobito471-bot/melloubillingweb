@@ -6,3 +6,10 @@
 .filters-section nz-range-picker {
     width: 100%;
 }
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}

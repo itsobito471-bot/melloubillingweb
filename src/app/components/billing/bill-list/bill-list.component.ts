@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AppService } from '../../../services/api.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-bill-list',
   templateUrl: './bill-list.component.html',
@@ -87,6 +89,38 @@ export class BillListComponent implements OnInit {
     this.appService.downloadBillPDF(billId);
     this.message.success('Downloading PDF...');
     this.loading = false;
+  }
+
+  deleteBill(id: string): void {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this bill!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#b78fd1',
+      cancelButtonColor: '#ff4d4f',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.loading = true;
+        this.appService.deleteBill(id).subscribe({
+          next: () => {
+            Swal.fire(
+              'Deleted!',
+              'The bill has been deleted.',
+              'success'
+            );
+            this.loadBills();
+          },
+          error: (err) => {
+            this.message.error(err.error?.message || 'Failed to delete bill');
+            this.loading = false;
+          }
+        });
+      }
+    });
   }
 
   getTotal(bill: any): number {

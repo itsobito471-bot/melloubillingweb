@@ -129,6 +129,10 @@ export class AppService {
         return this.get('/bills');
     }
 
+    deleteBill(id: string): Observable<any> {
+        return this.delete(`/bills/${id}`);
+    }
+
     downloadBillPDF(billId: string): void {
         const url = `${this.apiEndPoint}/bills/${billId}/pdf`;
         this.http.get(url, {

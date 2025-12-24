@@ -43,7 +43,7 @@
                 <th>Phone</th>
                 <th>Items</th>
                 <th>Total Amount</th>
-                <th nzWidth="120px">Actions</th>
+                <th nzWidth="120px" nzAlign="center">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -60,10 +60,16 @@
                 <td>
                     <strong style="color: #b78fd1;">₹{{ bill.finalAmount || getTotal(bill) }}</strong>
                 </td>
-                <td>
-                    <button nz-button nzType="link" (click)="downloadPDF(bill._id)" nz-tooltip="Download PDF">
-                        <i nz-icon nzType="download"></i>
-                    </button>
+                <td nzAlign="center">
+                    <div class="action-buttons">
+                        <button nz-button nzType="link" (click)="downloadPDF(bill._id)" nz-tooltip="Download PDF">
+                            <i nz-icon nzType="download"></i>
+                        </button>
+                        <button nz-button nzType="link" nzDanger (click)="deleteBill(bill._id)"
+                            nz-tooltip="Delete Bill">
+                            <i nz-icon nzType="delete"></i>
+                        </button>
+                    </div>
                 </td>
             </tr>
             <tr *ngIf="filteredBills.length === 0">
