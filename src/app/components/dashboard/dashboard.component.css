@@ -14,12 +14,37 @@
     .dashboard-container {
         padding: 16px;
     }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .dashboard-header .filter,
+    .dashboard-header .filter nz-range-picker {
+        width: 100%;
+    }
+
+    .stat-card ::ng-deep .ant-statistic-content-value {
+        font-size: 22px !important;
+    }
+
+    .stat-card i {
+        font-size: 20px !important;
+        right: 16px !important;
+        top: 16px !important;
+    }
+
+    .chart-card {
+        margin-bottom: 24px;
+    }
 }
 
 .dashboard-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    /* align-items: center; */
     margin-bottom: 24px;
 }
 
@@ -37,6 +62,14 @@
 .stat-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+}
+
+.summary-row {
+    margin-bottom: 0;
+}
+
+.summary-row [nz-col] {
+    margin-bottom: 24px;
 }
 
 .net-income-card {

@@ -1,33 +1,32 @@
 <nz-card nzTitle="Bills Management">
     <!-- Filters Section -->
-    <div class="filters-section" nz-row [nzGutter]="[16, 16]">
-        <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12" [nzLg]="8">
-            <nz-input-group [nzPrefix]="prefixTemplate">
-                <input nz-input placeholder="Search by client name or phone" [(ngModel)]="searchText"
-                    (ngModelChange)="onSearch()" />
-            </nz-input-group>
-            <ng-template #prefixTemplate>
-                <i nz-icon nzType="search"></i>
-            </ng-template>
-        </div>
+    <div class="filters-container">
+        <div nz-row [nzGutter]="[16, 16]">
+            <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12" [nzLg]="8">
+                <nz-input-group [nzPrefix]="prefixTemplate">
+                    <input nz-input placeholder="Search by client name or phone" [(ngModel)]="searchText"
+                        (ngModelChange)="onSearch()" />
+                </nz-input-group>
+                <ng-template #prefixTemplate>
+                    <i nz-icon nzType="search"></i>
+                </ng-template>
+            </div>
 
-        <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12" [nzLg]="8">
-            <nz-range-picker [(ngModel)]="dateRange" (ngModelChange)="onDateRangeChange()" style="width: 100%;">
-            </nz-range-picker>
-        </div>
+            <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12" [nzLg]="8">
+                <nz-range-picker [(ngModel)]="dateRange" (ngModelChange)="onDateRangeChange()" style="width: 100%;">
+                </nz-range-picker>
+            </div>
 
-        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="4">
-            <button nz-button nzType="default" (click)="clearFilters()" style="width: 100%;">
-                <i nz-icon nzType="close"></i>
-                Clear Filters
-            </button>
-        </div>
-
-        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="4">
-            <button nz-button nzType="primary" (click)="onCreateBill()" style="width: 100%;">
-                <i nz-icon nzType="plus"></i>
-                Create Bill
-            </button>
+            <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="8">
+                <div class="action-buttons-container">
+                    <button nz-button nzType="default" (click)="clearFilters()">
+                        <i nz-icon nzType="close"></i> Clear Filters
+                    </button>
+                    <button nz-button nzType="primary" (click)="onCreateBill()">
+                        <i nz-icon nzType="plus"></i> Create Bill
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 

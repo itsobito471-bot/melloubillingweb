@@ -14,7 +14,7 @@
         </button>
     </div>
 
-    <nz-table #categoryTable [nzData]="categories" [nzLoading]="loading" [nzPageSize]="10">
+    <nz-table #categoryTable [nzData]="categories" [nzLoading]="loading" [nzPageSize]="10" [nzScroll]="{ x: '600px' }">
         <thead>
             <tr>
                 <th>Name</th>

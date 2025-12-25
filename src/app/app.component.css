@@ -259,15 +259,15 @@
     right: 0;
     left: 256px;
     /* Aligns with sidebar width */
-    background: transparent;
+    background: #fff;
     padding: 0 30px;
     height: 80px;
     /* Match sidebar header height */
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); */
-    /* border-bottom: 1px solid #f0f0f0; */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid #f0f0f0;
     z-index: 999;
     transition: left 0.2s;
 }
@@ -553,19 +553,7 @@
 @media (max-width: 768px) {
     .top-header {
         padding: 0 16px;
-        left: 80px;
-        /* Assume collapsed on mobile/tablet */
     }
-
-    /* When sidebar is open on small screens (overlay mode not implemented here, assumed 80px or 256px push) */
-    /* If nz-sider is collapsed, it has width 80px. */
-
-    .right-layout {
-        margin-left: 80px;
-        /* Force margin to match collapsed sidebar */
-    }
-
-    /* Override any specific left margin if sidebar expands on overlay (not relevant for default sider) */
 
     .user-details {
         display: none;
@@ -573,13 +561,6 @@
 
     .header-right {
         gap: 12px;
-    }
-
-    .collapse-trigger {
-        /* Hide trigger on mobile if we want to enforce collapsed state or just adjust position */
-        /* Currently it stays at fixed pos */
-        left: 68px !important;
-        /* Force position near collapsed sider */
     }
 }
 

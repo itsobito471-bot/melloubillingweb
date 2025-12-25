@@ -9,7 +9,8 @@
 
     <nz-card>
         <nz-table #basicTable [nzData]="users" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="pageIndex"
-            [(nzPageSize)]="pageSize" [nzFrontPagination]="false" (nzQueryParamsChange)="onQueryParamsChange($event)">
+            [(nzPageSize)]="pageSize" [nzFrontPagination]="false" (nzQueryParamsChange)="onQueryParamsChange($event)"
+            [nzScroll]="{ x: '900px' }">
             <thead>
                 <tr>
                     <th>Username</th>

@@ -47,7 +47,7 @@
 
     <div *ngIf="!loading">
         <!-- Charts Row 1: Trend & Net Income Bar -->
-        <div nz-row [nzGutter]="24" style="margin-top: 24px;">
+        <div nz-row [nzGutter]="[24, 24]" style="margin-top: 24px;">
             <!-- Sales Trend -->
             <div nz-col [nzXs]="24" [nzLg]="16">
                 <nz-card nzTitle="Sales Trend" [nzBordered]="false" class="chart-card">
@@ -70,7 +70,7 @@
         </div>
 
         <!-- Charts Row 2: Route & Retail -->
-        <div nz-row [nzGutter]="24" style="margin-top: 24px;">
+        <div nz-row [nzGutter]="[24, 24]" style="margin-top: 24px;">
             <div nz-col [nzXs]="24" [nzLg]="12">
                 <nz-card nzTitle="Route Sales (Top Subareas)" [nzBordered]="false" class="chart-card">
                     <div style="height: 300px;">
@@ -90,7 +90,7 @@
         </div>
 
         <!-- Charts Row 3: Regional -->
-        <div nz-row [nzGutter]="24" style="margin-top: 24px;">
+        <div nz-row [nzGutter]="[24, 24]" style="margin-top: 24px;">
             <div nz-col [nzSpan]="24">
                 <nz-card nzTitle="Regional Sales" [nzBordered]="false" class="chart-card">
                     <div style="height: 300px;">

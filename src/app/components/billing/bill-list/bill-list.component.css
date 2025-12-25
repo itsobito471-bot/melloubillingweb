@@ -1,10 +1,32 @@
-.filters-section {
-    margin-bottom: 24px;
+.filters-container {
+    margin-bottom: 32px;
+    padding: 16px;
+    background: #fafafa;
+    border-radius: 8px;
+    border: 1px solid #f0f0f0;
 }
 
-.filters-section nz-input-group,
-.filters-section nz-range-picker {
-    width: 100%;
+.action-buttons-container {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+@media (max-width: 992px) {
+    .action-buttons-container {
+        justify-content: flex-start;
+        margin-top: 8px;
+    }
+}
+
+@media (max-width: 576px) {
+    .action-buttons-container {
+        flex-direction: column;
+    }
+
+    .action-buttons-container button {
+        width: 100%;
+    }
 }
 
 .action-buttons {

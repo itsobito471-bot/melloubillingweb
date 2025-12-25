@@ -1,24 +1,26 @@
 <nz-card nzTitle="Expense Management">
-    <div class="header-actions" nz-row [nzGutter]="[16, 16]" style="margin-bottom: 24px;">
-        <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12" [nzLg]="6">
-            <nz-select [(ngModel)]="filterCategoryId" (ngModelChange)="onFilterChange()"
-                nzPlaceHolder="Filter by Category" nzAllowClear style="width: 100%;">
-                <nz-option *ngFor="let cat of categories" [nzValue]="cat._id" [nzLabel]="cat.name"></nz-option>
-            </nz-select>
-        </div>
-        <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12" [nzLg]="8">
-            <nz-range-picker [(ngModel)]="dateRange" (ngModelChange)="onFilterChange()"
-                style="width: 100%;"></nz-range-picker>
-        </div>
-        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="5">
-            <button nz-button nzType="default" (click)="navigateToCategories()" style="width: 100%;">
-                <i nz-icon nzType="appstore"></i> Categories
-            </button>
-        </div>
-        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="5">
-            <button nz-button nzType="primary" (click)="navigateToCreate()" style="width: 100%;">
-                <i nz-icon nzType="plus"></i> Add Expense
-            </button>
+    <div class="filters-container">
+        <div nz-row [nzGutter]="[16, 16]">
+            <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12" [nzLg]="8">
+                <nz-select [(ngModel)]="filterCategoryId" (ngModelChange)="onFilterChange()"
+                    nzPlaceHolder="Filter by Category" nzAllowClear style="width: 100%;">
+                    <nz-option *ngFor="let cat of categories" [nzValue]="cat._id" [nzLabel]="cat.name"></nz-option>
+                </nz-select>
+            </div>
+            <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12" [nzLg]="8">
+                <nz-range-picker [(ngModel)]="dateRange" (ngModelChange)="onFilterChange()"
+                    style="width: 100%;"></nz-range-picker>
+            </div>
+            <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="8">
+                <div class="action-buttons-container">
+                    <button nz-button nzType="default" (click)="navigateToCategories()">
+                        <i nz-icon nzType="appstore"></i> Categories
+                    </button>
+                    <button nz-button nzType="primary" (click)="navigateToCreate()">
+                        <i nz-icon nzType="plus"></i> Add Expense
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
