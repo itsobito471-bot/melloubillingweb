@@ -22,6 +22,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { NzStatisticModule } from 'ng-zorro-antd/statistic';
     NzSpaceModule,
     NzDividerModule,
     NzInputNumberModule,
-    NzStatisticModule
+    NzStatisticModule,
+    NzModalModule
   ]
 })
 export class BillingModule { }

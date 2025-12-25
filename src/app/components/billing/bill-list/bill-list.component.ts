@@ -17,6 +17,10 @@ export class BillListComponent implements OnInit {
   searchText = '';
   dateRange: Date[] = [];
 
+  // Preview Modal Properties
+  previewVisible = false;
+  selectedBill: any = null;
+
   constructor(
     private router: Router,
     private appService: AppService,
@@ -89,6 +93,16 @@ export class BillListComponent implements OnInit {
     this.appService.downloadBillPDF(billId);
     this.message.success('Downloading PDF...');
     this.loading = false;
+  }
+
+  viewBill(bill: any): void {
+    this.selectedBill = bill;
+    this.previewVisible = true;
+  }
+
+  closePreview(): void {
+    this.previewVisible = false;
+    this.selectedBill = null;
   }
 
   deleteBill(id: string): void {

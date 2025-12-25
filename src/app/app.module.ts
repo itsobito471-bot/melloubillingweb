@@ -53,7 +53,12 @@ import {
   SearchOutline,
   DownloadOutline,
   ArrowLeftOutline,
-  WalletFill
+  ArrowUpOutline,
+  ArrowDownOutline,
+  EyeOutline,
+  EyeInvisibleOutline,
+  WalletFill,
+  WalletOutline
 } from '@ant-design/icons-angular/icons';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -78,7 +83,12 @@ const icons = [
   SearchOutline,
   DownloadOutline,
   ArrowLeftOutline,
-  WalletFill
+  ArrowUpOutline,
+  ArrowDownOutline,
+  EyeOutline,
+  EyeInvisibleOutline,
+  WalletFill,
+  WalletOutline
 ];
 
 registerLocaleData(en);

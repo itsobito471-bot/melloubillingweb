@@ -62,6 +62,9 @@
                 </td>
                 <td nzAlign="center">
                     <div class="action-buttons">
+                        <button nz-button nzType="link" (click)="viewBill(bill)" nz-tooltip="View Bill">
+                            <i nz-icon nzType="eye"></i>
+                        </button>
                         <button nz-button nzType="link" (click)="downloadPDF(bill._id)" nz-tooltip="Download PDF">
                             <i nz-icon nzType="download"></i>
                         </button>
@@ -85,3 +88,72 @@
         </tbody>
     </nz-table>
 </nz-card>
+
+<!-- Bill Preview Modal -->
+<nz-modal [(nzVisible)]="previewVisible" nzTitle="Bill Preview" [nzFooter]="null" (nzOnCancel)="closePreview()"
+    [nzWidth]="800">
+    <div *nzModalContent>
+        <div *ngIf="selectedBill" class="bill-preview-content">
+            <div class="preview-header">
+                <div class="business-info">
+                    <h2 style="color: #b78fd1; font-weight: bold; margin-bottom: 4px;">Mellou</h2>
+                    <p style="margin-bottom: 2px;"><strong>Bill ID:</strong> <code
+                            style="font-size: 12px;"> {{ selectedBill?.billNumber }}</code></p>
+                    <p><strong>Date:</strong> {{ selectedBill.date | date:'medium' }}</p>
+                </div>
+                <div class="client-info"
+                    style="margin-top: 16px; padding: 12px; background: #f9f9f9; border-radius: 8px;">
+                    <h4
+                        style="margin-top: 0; color: #666; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">
+                        Client Details</h4>
+                    <p style="margin-bottom: 4px;"><strong>Name:</strong> {{ selectedBill.client?.name }}</p>
+                    <p style="margin-bottom: 4px;"><strong>Phone:</strong> {{ selectedBill.client?.phone }}</p>
+                    <p style="margin-bottom: 0;"><strong>Address:</strong> {{ selectedBill.client?.address }}
+                        <span *ngIf="selectedBill.client?.area">({{ selectedBill.client?.area }} / {{
+                            selectedBill.client?.subarea }})</span>
+                    </p>
+                </div>
+            </div>
+
+            <nz-divider></nz-divider>
+
+            <nz-table #previewTable [nzData]="selectedBill.items" [nzShowPagination]="false" nzSize="small">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th nzWidth="100px">Price</th>
+                        <th nzWidth="80px">Qty</th>
+                        <th nzWidth="120px" nzAlign="right">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of selectedBill.items">
+                        <td>{{ item.name || 'Deleted Product' }}</td>
+                        <td>₹{{ item.price }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td nzAlign="right"><strong>₹{{ item.price * item.quantity }}</strong></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" style="text-align: right; padding-top: 16px;"><strong>Grand Total:</strong></td>
+                        <td nzAlign="right" style="padding-top: 16px;">
+                            <strong style="color: #b78fd1; font-size: 24px;">₹{{ selectedBill.finalAmount ||
+                                getTotal(selectedBill) }}</strong>
+                        </td>
+                    </tr>
+                </tfoot>
+            </nz-table>
+
+            <div class="preview-actions"
+                style="margin-top: 32px; text-align: right; border-top: 1px solid #f0f0f0; padding-top: 16px;">
+                <button nz-button nzType="default" (click)="closePreview()">Close</button>
+                <button nz-button nzType="primary" (click)="downloadPDF(selectedBill._id)"
+                    style="margin-left: 12px; background: #b78fd1; border-color: #b78fd1;">
+                    <i nz-icon nzType="download"></i>
+                    Download PDF
+                </button>
+            </div>
+        </div>
+    </div>
+</nz-modal>
