@@ -47,7 +47,8 @@ export class ClientFormComponent implements OnInit {
       area: [''],
       subarea: [''],
       address: [''],
-      status: ['Active', [Validators.required]]
+      status: ['Active', [Validators.required]],
+      resellerMargin: [0]
     });
   }
 
@@ -90,7 +91,8 @@ export class ClientFormComponent implements OnInit {
       phone: client.phone,
       area: client.area,
       address: client.address,
-      status: client.status || 'Active'
+      status: client.status || 'Active',
+      resellerMargin: client.resellerMargin || 0
     });
 
     // Trigger subarea load

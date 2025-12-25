@@ -32,6 +32,17 @@
                 </nz-form-item>
             </div>
 
+            <!-- Reseller Margin -->
+            <div nz-col [nzXs]="24" [nzMd]="8">
+                <nz-form-item>
+                    <nz-form-label>Reseller Margin (%)</nz-form-label>
+                    <nz-form-control>
+                        <nz-input-number formControlName="resellerMargin" [nzMin]="0" [nzMax]="100" [nzStep]="0.5"
+                            nzPlaceHolder="Margin %" style="width: 100%;"></nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
             <!-- Status -->
             <div nz-col [nzXs]="24" [nzMd]="12">
                 <nz-form-item>

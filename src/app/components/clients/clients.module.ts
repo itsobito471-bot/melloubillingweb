@@ -23,6 +23,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
     NzSpaceModule,
     NzToolTipModule,
     NzSpinModule,
-    NzRadioModule
+    NzRadioModule,
+    NzInputNumberModule
   ]
 })
 export class ClientsModule { }
