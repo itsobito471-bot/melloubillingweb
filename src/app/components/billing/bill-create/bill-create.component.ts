@@ -19,6 +19,8 @@ export class BillCreateComponent implements OnInit {
   products: any[] = [];
   areas: any[] = [];
   basket: BasketItem[] = [];
+  resellerMargin: number = 0;
+  gstSettings: { cgst: number, sgst: number } = { cgst: 2.5, sgst: 2.5 };
 
   clientForm!: FormGroup;
   itemForm!: FormGroup;
@@ -65,6 +67,13 @@ export class BillCreateComponent implements OnInit {
     this.appService.getClients().subscribe(response => this.clients = response.data || response);
     this.appService.getProducts().subscribe(response => this.products = response.data || response);
     this.appService.getAreas().subscribe(response => this.areas = response.data || response);
+    this.appService.getSettings().subscribe(response => {
+      const settings = response.data || response;
+      const cgst = settings.find((s: any) => s.key === 'cgstPercentage');
+      const sgst = settings.find((s: any) => s.key === 'sgstPercentage');
+      if (cgst) this.gstSettings.cgst = parseFloat(cgst.value);
+      if (sgst) this.gstSettings.sgst = parseFloat(sgst.value);
+    });
 
     if (this.isEditMode && this.billId) {
       this.loading = true;
@@ -72,8 +81,9 @@ export class BillCreateComponent implements OnInit {
         next: (response) => {
           const bill = response.data || response;
           this.selectedClientId = bill.client?._id || bill.client;
+          this.resellerMargin = bill.resellerMargin || 0;
           this.basket = bill.items.map((item: any) => ({
-            product: { _id: item.product, name: item.name, price: item.price },
+            product: { _id: item.product, name: item.name, price: item.mrp || item.price },
             quantity: item.quantity
           }));
           this.loading = false;
@@ -94,7 +104,7 @@ export class BillCreateComponent implements OnInit {
     this.clientForm.patchValue({ subarea: '' });
 
     if (areaName) {
-      const selectedAreaObj = this.areas.find(a => a.name === areaName);
+      const selectedAreaObj = this.areas.find((a: any) => a.name === areaName);
       if (selectedAreaObj) {
         // Load subareas for the selected area
         this.appService.getSubareas(selectedAreaObj._id).subscribe({
@@ -153,7 +163,7 @@ export class BillCreateComponent implements OnInit {
   addToBasket(): void {
     if (this.itemForm.valid) {
       const { productId, quantity } = this.itemForm.value;
-      const product = this.products.find(p => p._id === productId);
+      const product = this.products.find((p: any) => p._id === productId);
 
       if (!product) return;
 
@@ -175,7 +185,28 @@ export class BillCreateComponent implements OnInit {
   }
 
   getTotal(): number {
-    return this.basket.reduce((acc, item) => acc + (item.product.price * item.quantity), 0);
+    const marginMultiplier = 1 - (this.resellerMargin / 100);
+    const total = this.basket.reduce((acc, item) => acc + (item.product.price * marginMultiplier * item.quantity), 0);
+    return Math.round((total + Number.EPSILON) * 100) / 100;
+  }
+
+  getAdjustedPrice(mrp: number): number {
+    const price = mrp * (1 - (this.resellerMargin / 100));
+    return Math.round((price + Number.EPSILON) * 100) / 100;
+  }
+
+  getTaxableValue(mrp: number): number {
+    const adjustedPrice = this.getAdjustedPrice(mrp);
+    const totalGstRate = (this.gstSettings.cgst + this.gstSettings.sgst) / 100;
+    const taxableValue = adjustedPrice / (1 + totalGstRate);
+    return Math.round((taxableValue + Number.EPSILON) * 100) / 100;
+  }
+
+  onClientSelect(clientId: string): void {
+    const client = this.clients.find(c => c._id === clientId);
+    if (client) {
+      this.resellerMargin = client.resellerMargin || 0;
+    }
   }
 
   submitBill(): void {
@@ -191,9 +222,10 @@ export class BillCreateComponent implements OnInit {
         product: i.product._id,
         name: i.product.name,
         quantity: i.quantity,
-        price: i.product.price
+        price: i.product.price // Backend will handle the margin calculation
       })),
-      discount: 0
+      discount: 0,
+      resellerMargin: this.resellerMargin
     };
 
     const request = this.isEditMode && this.billId

@@ -48,7 +48,7 @@
         <tbody>
             <tr *ngFor="let bill of billsTable.data">
                 <td>
-                    <code style="font-size: 11px; color: #666;">{{ bill._id }}</code>
+                    <code style="font-size: 11px; color: #666;">{{ bill.billNumber }}</code>
                 </td>
                 <td>{{ bill.date | date:'short' }}</td>
                 <td><strong>{{ bill.client?.name || 'Unknown' }}</strong></td>

@@ -13,12 +13,21 @@
         <h3><i nz-icon nzType="user"></i> 1. Client Details</h3>
 
         <nz-space nzDirection="vertical" style="width: 100%;">
-            <div *nzSpaceItem>
-                <nz-select *ngIf="!isNewClient" [(ngModel)]="selectedClientId" nzPlaceHolder="Select Client"
-                    nzShowSearch style="width: 100%; max-width: 400px;">
-                    <nz-option *ngFor="let client of clients" [nzValue]="client._id"
-                        [nzLabel]="client.name + ' - ' + client.phone"></nz-option>
-                </nz-select>
+            <div *nzSpaceItem style="display: flex; gap: 24px; align-items: flex-end; width: 100%; flex-wrap: wrap;">
+                <div *ngIf="!isNewClient" style="flex: 1; max-width: 400px; min-width: 250px;">
+                    <nz-form-label style="margin-bottom: 8px; display: block;">Select Client</nz-form-label>
+                    <nz-select [(ngModel)]="selectedClientId" nzPlaceHolder="Select Client" nzShowSearch
+                        style="width: 100%;" (ngModelChange)="onClientSelect($event)">
+                        <nz-option *ngFor="let client of clients" [nzValue]="client._id"
+                            [nzLabel]="client.name + ' - ' + client.phone"></nz-option>
+                    </nz-select>
+                </div>
+
+                <div *ngIf="selectedClientId" style="width: 180px;">
+                    <nz-form-label style="margin-bottom: 8px; display: block;">Reseller Margin (%)</nz-form-label>
+                    <nz-input-number [(ngModel)]="resellerMargin" [nzMin]="0" [nzMax]="100" [nzStep]="1"
+                        nzPlaceHolder="Margin %" style="width: 100%;" nzSize="default"></nz-input-number>
+                </div>
             </div>
 
             <button *nzSpaceItem nz-button nzType="default" (click)="toggleNewClient()">
@@ -139,7 +148,9 @@
                 <tr>
                     <th>Item</th>
                     <th>Quantity</th>
-                    <th>Price</th>
+                    <th>MRP</th>
+                    <th>Purchase price</th>
+                    <th>Taxable Value</th>
                     <th>Total</th>
                     <th nzWidth="60px"></th>
                 </tr>
@@ -149,7 +160,18 @@
                     <td>{{ item.product.name }}</td>
                     <td>{{ item.quantity }}</td>
                     <td>₹{{ item.product.price }}</td>
-                    <td><strong>₹{{ item.product.price * item.quantity }}</strong></td>
+                    <td>
+                        <!-- <span style="color: #666; text-decoration: line-through; font-size: 12px; margin-right: 4px;">
+                            ₹{{ item.product.price }}
+                        </span> -->
+                        <strong>₹{{ getAdjustedPrice(item.product.price) | number:'1.2-2' }}</strong>
+                    </td>
+
+                    <td>
+                        <strong>₹{{ getTaxableValue(item.product.price) | number:'1.2-2' }}</strong>
+                    </td>
+                    <td><strong>₹{{ (getTaxableValue(item.product.price) * item.quantity) | number:'1.2-2' }}</strong>
+                    </td>
                     <td>
                         <button nz-button nzType="link" nzDanger (click)="removeFromBasket(i)">
                             <i nz-icon nzType="delete"></i>
@@ -166,7 +188,7 @@
                 <tr>
                     <td colspan="3" style="text-align: right;"><strong>Grand Total:</strong></td>
                     <td colspan="2">
-                        <nz-statistic [nzValue]="getTotal()" nzPrefix="₹"
+                        <nz-statistic [nzValue]="(getTotal() | number:'1.2-2')!" nzPrefix="₹"
                             [nzValueStyle]="{ color: '#b78fd1', fontSize: '24px', fontWeight: 'bold' }"></nz-statistic>
                     </td>
                 </tr>
