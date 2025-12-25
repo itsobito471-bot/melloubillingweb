@@ -18,3 +18,8 @@
     margin-top: 16px;
     background: #fafafa;
 }
+
+.action-btn {
+    padding-left: 4px;
+    padding-right: 4px;
+}

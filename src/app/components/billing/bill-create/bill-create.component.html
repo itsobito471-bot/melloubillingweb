@@ -28,6 +28,11 @@
                     <nz-input-number [(ngModel)]="resellerMargin" [nzMin]="0" [nzMax]="100" [nzStep]="1"
                         nzPlaceHolder="Margin %" style="width: 100%;" nzSize="default"></nz-input-number>
                 </div>
+
+                <div style="width: 180px;">
+                    <nz-form-label style="margin-bottom: 8px; display: block;">Bill Date</nz-form-label>
+                    <nz-date-picker [(ngModel)]="billDate" nzFormat="dd-MM-yyyy" style="width: 100%;"></nz-date-picker>
+                </div>
             </div>
 
             <button *nzSpaceItem nz-button nzType="default" (click)="toggleNewClient()">
@@ -129,8 +134,8 @@
             <nz-form-item>
                 <nz-form-control>
                     <button nz-button nzType="primary" (click)="addToBasket()">
-                        <i nz-icon nzType="plus"></i>
-                        Add
+                        <i nz-icon [nzType]="editingItemIndex !== null ? 'check-circle' : 'plus'"></i>
+                        {{ editingItemIndex !== null ? 'Update Item' : 'Add' }}
                     </button>
                 </nz-form-control>
             </nz-form-item>
@@ -152,7 +157,7 @@
                     <th>Purchase price</th>
                     <th>Taxable Value</th>
                     <th>Total</th>
-                    <th nzWidth="60px"></th>
+                    <th nzWidth="80px"></th>
                 </tr>
             </thead>
             <tbody>
@@ -173,9 +178,16 @@
                     <td><strong>₹{{ (getTaxableValue(item.product.price) * item.quantity) | number:'1.2-2' }}</strong>
                     </td>
                     <td>
-                        <button nz-button nzType="link" nzDanger (click)="removeFromBasket(i)">
-                            <i nz-icon nzType="delete"></i>
-                        </button>
+                        <nz-space [nzSize]="0">
+                            <button *nzSpaceItem nz-button nzType="link" (click)="editFromBasket(i)" class="action-btn"
+                                nz-tooltip="Edit Item">
+                                <i nz-icon nzType="edit"></i>
+                            </button>
+                            <button *nzSpaceItem nz-button nzType="link" nzDanger (click)="removeFromBasket(i)"
+                                class="action-btn" nz-tooltip="Remove Item">
+                                <i nz-icon nzType="delete"></i>
+                            </button>
+                        </nz-space>
                     </td>
                 </tr>
                 <tr *ngIf="basket.length === 0">

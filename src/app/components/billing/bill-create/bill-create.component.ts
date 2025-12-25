@@ -20,6 +20,7 @@ export class BillCreateComponent implements OnInit {
   areas: any[] = [];
   basket: BasketItem[] = [];
   resellerMargin: number = 0;
+  billDate: Date = new Date();
   gstSettings: { cgst: number, sgst: number } = { cgst: 2.5, sgst: 2.5 };
 
   clientForm!: FormGroup;
@@ -34,6 +35,7 @@ export class BillCreateComponent implements OnInit {
   // Edit Mode Properties
   isEditMode = false;
   billId: string | null = null;
+  editingItemIndex: number | null = null;
 
   constructor(
     private router: Router,
@@ -82,6 +84,7 @@ export class BillCreateComponent implements OnInit {
           const bill = response.data || response;
           this.selectedClientId = bill.client?._id || bill.client;
           this.resellerMargin = bill.resellerMargin || 0;
+          this.billDate = bill.date ? new Date(bill.date) : new Date();
           this.basket = bill.items.map((item: any) => ({
             product: { _id: item.product, name: item.name, price: item.mrp || item.price },
             quantity: item.quantity
@@ -167,16 +170,33 @@ export class BillCreateComponent implements OnInit {
 
       if (!product) return;
 
-      const existing = this.basket.find(i => i.product._id === product._id);
-      if (existing) {
-        existing.quantity += quantity;
+      if (this.editingItemIndex !== null) {
+        // Update existing item
+        this.basket[this.editingItemIndex] = { product, quantity };
+        this.editingItemIndex = null;
+        this.message.success('Item updated in basket');
       } else {
-        this.basket.push({ product, quantity });
+        // Add new item
+        const existing = this.basket.find(i => i.product._id === product._id);
+        if (existing) {
+          existing.quantity += quantity;
+        } else {
+          this.basket.push({ product, quantity });
+        }
+        this.message.success('Item added to basket');
       }
 
       this.itemForm.patchValue({ productId: null, quantity: 1 });
-      this.message.success('Item added to basket');
     }
+  }
+
+  editFromBasket(index: number): void {
+    const item = this.basket[index];
+    this.editingItemIndex = index;
+    this.itemForm.patchValue({
+      productId: item.product._id,
+      quantity: item.quantity
+    });
   }
 
   removeFromBasket(index: number): void {
@@ -225,7 +245,8 @@ export class BillCreateComponent implements OnInit {
         price: i.product.price // Backend will handle the margin calculation
       })),
       discount: 0,
-      resellerMargin: this.resellerMargin
+      resellerMargin: this.resellerMargin,
+      date: this.billDate
     };
 
     const request = this.isEditMode && this.billId
