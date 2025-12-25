@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AppService } from '../../../services/api.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -10,7 +11,7 @@ import Swal from 'sweetalert2';
   templateUrl: './bill-list.component.html',
   styleUrls: ['./bill-list.component.css']
 })
-export class BillListComponent implements OnInit {
+export class BillListComponent implements OnInit, OnDestroy {
   bills: any[] = [];
   filteredBills: any[] = [];
   loading = false;
@@ -20,15 +21,23 @@ export class BillListComponent implements OnInit {
   // Preview Modal Properties
   previewVisible = false;
   selectedBill: any = null;
+  pdfUrl: SafeResourceUrl | null = null;
+  pdfLoading = false;
+  private currentPdfBlobUrl: string | null = null;
 
   constructor(
     private router: Router,
     private appService: AppService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
     this.loadBills();
+  }
+
+  ngOnDestroy(): void {
+    this.cleanupPdfUrl();
   }
 
   loadBills(): void {
@@ -98,11 +107,36 @@ export class BillListComponent implements OnInit {
   viewBill(bill: any): void {
     this.selectedBill = bill;
     this.previewVisible = true;
+    this.pdfLoading = true;
+    this.pdfUrl = null;
+
+    this.appService.getBillPDF(bill._id).subscribe({
+      next: (blob: Blob) => {
+        this.cleanupPdfUrl();
+        this.currentPdfBlobUrl = window.URL.createObjectURL(blob);
+        this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.currentPdfBlobUrl);
+        this.pdfLoading = false;
+      },
+      error: (err) => {
+        console.error('Error loading PDF preview:', err);
+        this.message.error('Failed to load PDF preview');
+        this.pdfLoading = false;
+      }
+    });
+  }
+
+  private cleanupPdfUrl(): void {
+    if (this.currentPdfBlobUrl) {
+      window.URL.revokeObjectURL(this.currentPdfBlobUrl);
+      this.currentPdfBlobUrl = null;
+    }
   }
 
   closePreview(): void {
     this.previewVisible = false;
     this.selectedBill = null;
+    this.pdfUrl = null;
+    this.cleanupPdfUrl();
   }
 
   deleteBill(id: string): void {

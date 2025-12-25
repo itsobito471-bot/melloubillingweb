@@ -129,16 +129,20 @@ export class AppService {
         return this.get('/bills');
     }
 
+    getBillById(id: string): Observable<any> {
+        return this.get(`/bills/${id}`);
+    }
+
+    updateBill(id: string, data: any): Observable<any> {
+        return this.patch(`/bills/${id}`, data);
+    }
+
     deleteBill(id: string): Observable<any> {
         return this.delete(`/bills/${id}`);
     }
 
     downloadBillPDF(billId: string): void {
-        const url = `${this.apiEndPoint}/bills/${billId}/pdf`;
-        this.http.get(url, {
-            headers: this.getHeaders(),
-            responseType: 'blob'
-        }).subscribe({
+        this.getBillPDF(billId).subscribe({
             next: (blob: Blob) => {
                 const downloadUrl = window.URL.createObjectURL(blob);
                 const link = document.createElement('a');
@@ -150,6 +154,14 @@ export class AppService {
             error: (error) => {
                 console.error('Error downloading PDF:', error);
             }
+        });
+    }
+
+    getBillPDF(billId: string): Observable<Blob> {
+        const url = `${this.apiEndPoint}/bills/${billId}/pdf`;
+        return this.http.get(url, {
+            headers: this.getHeaders(),
+            responseType: 'blob'
         });
     }
 

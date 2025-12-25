@@ -4,7 +4,7 @@
             <i nz-icon nzType="arrow-left" nzTheme="outline"
                 style="cursor: pointer; margin-right: 16px; font-size: 18px;" (click)="onCancel()"
                 nz-tooltip="Back to Bills"></i>
-            <span style="font-size: 18px; font-weight: bold;">Create New Bill</span>
+            <span style="font-size: 18px; font-weight: bold;">{{ isEditMode ? 'Edit Bill' : 'Create New Bill' }}</span>
         </div>
     </ng-template>
 
@@ -180,7 +180,7 @@
             <button nz-button nzType="primary" nzSize="large" [nzLoading]="loading"
                 [disabled]="!selectedClientId || basket.length === 0" (click)="submitBill()">
                 <i nz-icon nzType="check-circle"></i>
-                Generate Bill
+                {{ isEditMode ? 'Update Bill' : 'Generate Bill' }}
             </button>
         </div>
     </div>

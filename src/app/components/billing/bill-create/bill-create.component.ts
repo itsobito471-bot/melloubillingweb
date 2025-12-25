@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppService } from '../../../services/api.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -29,8 +29,13 @@ export class BillCreateComponent implements OnInit {
   filteredSubareas: string[] = [];
   loading = false;
 
+  // Edit Mode Properties
+  isEditMode = false;
+  billId: string | null = null;
+
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private fb: FormBuilder,
     private appService: AppService,
     private message: NzMessageService
@@ -50,6 +55,9 @@ export class BillCreateComponent implements OnInit {
       quantity: [1, [Validators.required, Validators.min(1)]]
     });
 
+    this.billId = this.route.snapshot.paramMap.get('id');
+    this.isEditMode = !!this.billId;
+
     this.loadData();
   }
 
@@ -57,6 +65,26 @@ export class BillCreateComponent implements OnInit {
     this.appService.getClients().subscribe(response => this.clients = response.data || response);
     this.appService.getProducts().subscribe(response => this.products = response.data || response);
     this.appService.getAreas().subscribe(response => this.areas = response.data || response);
+
+    if (this.isEditMode && this.billId) {
+      this.loading = true;
+      this.appService.getBillById(this.billId).subscribe({
+        next: (response) => {
+          const bill = response.data || response;
+          this.selectedClientId = bill.client?._id || bill.client;
+          this.basket = bill.items.map((item: any) => ({
+            product: { _id: item.product, name: item.name, price: item.price },
+            quantity: item.quantity
+          }));
+          this.loading = false;
+        },
+        error: () => {
+          this.message.error('Failed to load bill details');
+          this.loading = false;
+          this.router.navigate(['/billing']);
+        }
+      });
+    }
   }
 
   onAreaChange(): void {
@@ -159,13 +187,22 @@ export class BillCreateComponent implements OnInit {
     this.loading = true;
     const payload = {
       clientId: this.selectedClientId,
-      items: this.basket.map(i => ({ product: i.product._id, quantity: i.quantity })),
+      items: this.basket.map(i => ({
+        product: i.product._id,
+        name: i.product.name,
+        quantity: i.quantity,
+        price: i.product.price
+      })),
       discount: 0
     };
 
-    this.appService.createBill(payload).subscribe({
+    const request = this.isEditMode && this.billId
+      ? this.appService.updateBill(this.billId, payload)
+      : this.appService.createBill(payload);
+
+    request.subscribe({
       next: (bill) => {
-        this.message.success('Bill created successfully!', {
+        this.message.success(this.isEditMode ? 'Bill updated successfully!' : 'Bill created successfully!', {
           nzDuration: 3000
         });
 
@@ -178,7 +215,7 @@ export class BillCreateComponent implements OnInit {
         this.router.navigate(['/billing']);
       },
       error: () => {
-        this.message.error('Failed to create bill');
+        this.message.error(this.isEditMode ? 'Failed to update bill' : 'Failed to create bill');
         this.loading = false;
       }
     });

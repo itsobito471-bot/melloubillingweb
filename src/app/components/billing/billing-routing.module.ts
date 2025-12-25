@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'create',
     component: BillCreateComponent
+  },
+  {
+    path: 'edit/:id',
+    component: BillCreateComponent
   }
 ];
 
